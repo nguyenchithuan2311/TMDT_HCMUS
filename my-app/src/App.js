@@ -1,12 +1,11 @@
-
-
-import { Desktop1 } from './login';
+//import { Login } from './page/login';
+import { ManageProduct} from './page/ManageProduct';
 
 function App() {
   
   return (
     <div className="App">
-      <Desktop1/>
+      <ManageProduct/>
     </div>
   );
 }
