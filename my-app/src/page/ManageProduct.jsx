@@ -6,11 +6,15 @@ import product from "../asset/img/shoe19_720x.webp"
 import bag from "../asset/img/bag-shopping-solid (1).svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faStar} from "@fortawesome/free-solid-svg-icons";export const ManageProduct = () => {
+
+import { faStar} from "@fortawesome/free-solid-svg-icons";
+
+export const ManageProduct = () => {
 
   library.add(faStar);
 
   return (
+
     <div>
       <Nav/>
     <div className="SearchProduct">
@@ -18,6 +22,7 @@ import { faStar} from "@fortawesome/free-solid-svg-icons";export const ManagePro
         <input type="text" placeholder="search..."className="search">
         </input>
     </div>
+
     <div className="areaCategory">
         <div className="square">
             <h2 className="Category">Category</h2>

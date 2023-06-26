@@ -1,6 +1,11 @@
 import "../App.css";
 import search from "../asset/img/magnifying-glass-solid.svg"
 import bag from "../asset/img/bag-shopping-solid (1).svg"
+import BagProduct from "./BagProduct";
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View,Image} from 'react-native';
+
+
 export const Nav = () => {
   return (
     <div className="nav">
@@ -24,6 +29,12 @@ export const Nav = () => {
                 <img className="searchNav" src={search}></img>
                 <input className="searchInput"type="box" placeholder="Search"></input>
                 <img className="bagProduct"src={bag}></img>
+                <TouchableOpacity onPress={()=> this.ponavigation.navigate('BagProduct')} >
+                <Image
+                source ={bag}
+                resizeode ="stretch"
+                />
+                </TouchableOpacity>
             </div>
         </div>
         <div className="botNav"></div>
