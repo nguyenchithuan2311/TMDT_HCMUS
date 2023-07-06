@@ -10,7 +10,7 @@ import momo_image from "../asset/img/Logo-MoMo-Square.png"
 import vnpay_image from "../asset/img/Icon VNPAY-QR.png"
 //import { Label } from "@mui/icons-material";
 import {StyleSheet, Text, TouchableOpacity, View,Image} from 'react-native';
-
+import Footer from "./Footer";
 
 function BagProduct() {
   
@@ -64,30 +64,28 @@ function BagProduct() {
               </button>
             </div>
           </div>
-          <div className="address">Address
-            <div className="city">City:</div>
+          <div className="address">Address</div>
+            <label className="city">City </label>
                 <select name="city_c" id="city">
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
 
-                <div className="district">District:</div>
+                <label className="district"> District </label>
                 <select name="district_c" id="district">
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
-
-                <div className="commune-town">Commune-Town:</div>
+                <div></div>
+                <label className="commune-town">Commune-Town:</label>
                 <select name="commune-town_c" id="commune-town">
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
 
-                <div className="address_street">Street:</div>
+                <label className="address_street">Street:</label>
                   <input type="text" className="street">
                 </input>
-              
-          </div>
       </div>
     );
   }

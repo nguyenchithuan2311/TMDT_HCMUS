@@ -271,3 +271,23 @@ body {
   font: 400 24px "Inter", sans-serif;
   position: relative;
 }
+
+.address{
+  color: #198aca;
+  text-align: center;
+  font: 400 20px "Inter", sans-serif;
+  position: absolute;
+  left: 71px;
+  top: 791px;
+  width: 90px;
+  height: 38px;
+}
+
+.city_c{
+  box-sizing: border-box;
+    background: #ffffff;
+  border-radius: 12px;
+  width: 254px;
+  height: 33px;
+  position: relative;
+}
