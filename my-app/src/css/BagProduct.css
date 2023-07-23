@@ -141,7 +141,7 @@ body {
     height: 318px;
     position: absolute;
     left: 800px;
-    top: 400px;
+    top: 600px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
@@ -242,7 +242,7 @@ body {
   position: relative;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   left: 640px;
-  top: 450px;
+  top: 650px;
 }
 
 .title_price{
@@ -272,13 +272,22 @@ body {
   position: relative;
 }
 
+.rectangleAddres{
+  background: rgba(25, 138, 202, 0.05);
+  width: 542px;
+  height: 284px;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  left: 200px;
+  top: 150px;
+}
+
 .address{
   color: #198aca;
-  text-align: center;
+ 
   font: 400 20px "Inter", sans-serif;
   position: absolute;
-  left: 71px;
-  top: 791px;
+  
   width: 90px;
   height: 38px;
 }
@@ -290,4 +299,60 @@ body {
   width: 254px;
   height: 33px;
   position: relative;
+}
+
+
+.NumberProduct{
+  color: #000000;
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  position: absolute;
+  left: 122px;
+  top: 330px;
+  width: 13px;
+}
+
+.image_Product{
+  width: 169px;
+  height: 125px;
+  position: absolute;
+  left: 273px;
+  top: 280px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.NameProduct{
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font: 400 20px "Inter", sans-serif;
+  position: absolute;
+  left: 120px;
+  top: 330px;
+}
+
+.amount-1{
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font: 400 20px "Inter", sans-serif;
+  position: absolute;
+  left: 850px;
+  top: 330px;
+}
+
+.price-1{
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font: 400 20px "Inter", sans-serif;
+  position: absolute;
+  left: 1050px;
+  top: 330px;
+}
+
+.total-1{
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font: 400 20px "Inter", sans-serif;
+  position: absolute;
+  left: 1250px;
+  top: 330px;
 }

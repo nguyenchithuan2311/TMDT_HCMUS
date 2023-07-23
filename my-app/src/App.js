@@ -4,12 +4,14 @@ import React from "react";
 //import { Route, Switch } from "react-router-dom";
 import BagProduct from './page/BagProduct';
 import Profile from './page/Profile';
+import Order from './page/Order';
+import ManageCus from './page/ManageCus';
 
 function App() {
   
   return (
     <div className="App">
-      <ManageProduct/>
+      <ManageCus/>
     </div>
   );
 }
@@ -19,3 +21,5 @@ export default App;
 //BagProduct
 //Login
 //Profile
+//Order
+//ManageCus
