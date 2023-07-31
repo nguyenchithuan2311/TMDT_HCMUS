@@ -1,7 +1,11 @@
 import "../App.css";
 import search from "../asset/img/magnifying-glass-solid.svg"
 import bag from "../asset/img/bag-shopping-solid (1).svg"
+<<<<<<< Updated upstream:my-app/src/page/nav.jsx
 import BagProduct from "./BagProduct";
+=======
+//import BagProduct from "./BagProduct";
+>>>>>>> Stashed changes:frontend/src/page/nav.jsx
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View,Image} from 'react-native';
 
@@ -17,7 +21,7 @@ export const Nav = () => {
             <div className="midNavleft">KING SHOES</div>
             <div className="midNavmid">
                 <nav>
-                <a href="#">Profile</a>
+                <a href="/profile">Profile</a>
                 <a href="#">Shop</a>
                 <a href="#">Product</a> 
                 <a href="#">User</a>

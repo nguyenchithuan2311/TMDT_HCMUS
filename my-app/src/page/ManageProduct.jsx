@@ -1,6 +1,6 @@
 import "../App.css";
 import Nav from './nav';
-
+import Footer from "./Footer";
 import icon_search from "../asset/img/magnifying-glass-solid.svg"
 import product from "../asset/img/shoe19_720x.webp"
 import bag from "../asset/img/bag-shopping-solid (1).svg"
@@ -108,7 +108,7 @@ export const ManageProduct = () => {
       <div className="squarePageing">Last</div>
       </div>
     </div>
+    
     </div>
   );
 };
-
