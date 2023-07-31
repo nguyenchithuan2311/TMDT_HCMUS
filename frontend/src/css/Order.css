@@ -1,0 +1,266 @@
+
+
+.star-regular-2 {
+    width: 39px;
+    height: 29px;
+    position: absolute;
+    left: 1041px;
+    top: 880px;
+    overflow: hidden;
+  }
+  .star-regular-5 {
+    width: 40px;
+    height: 29px;
+    position: absolute;
+    left: 636px;
+    top: 1381px;
+    overflow: hidden;
+  }
+  .rectangle-12 {
+    background: #ffffff;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px;
+    width: 1276px;
+    height: 1115px;
+    position: absolute;
+    left: 82px;
+    top: 908px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  ._0123456789 {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font: 400 20px "Inter", sans-serif;
+    position: absolute;
+    left: 555px;
+    top: 1239px;
+  }
+  ._01234567892 {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font: 400 20px "Inter", sans-serif;
+    position: absolute;
+    left: 715px;
+    top: 1239px;
+  }
+  .processing {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font: 400 20px "Inter", sans-serif;
+    position: absolute;
+    left: 885px;
+    top: 1239px;
+  }
+  .processed {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font: 400 20px "Inter", sans-serif;
+    position: absolute;
+    left: 887px;
+    top: 1304px;
+  }
+  ._1 {
+    color: #000000;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 128px;
+    top: 1239px;
+    width: 13px;
+  }
+  .nguyenchithuan-55-gmail-com {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font: 400 20px "Inter", sans-serif;
+    position: absolute;
+    left: 171px;
+    top: 1239px;
+    width: 384px;
+  }
+  .star-regular-6 {
+    width: 40px;
+    height: 29px;
+    position: absolute;
+    left: 674px;
+    top: 1071px;
+    overflow: hidden;
+  }
+  .order-id {
+    color: #198aca;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 69px;
+    top: 1174px;
+    width: 141px;
+  }
+  .user {
+    color: #198aca;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 326px;
+    top: 1174px;
+    width: 75px;
+  }
+  .phone {
+    color: #198aca;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 580px;
+    top: 1174px;
+    width: 70px;
+  }
+  .address {
+    color: #198aca;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 734px;
+    top: 1174px;
+    width: 83px;
+  }
+  .status {
+    color: #198aca;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 885px;
+    top: 1174px;
+    width: 83px;
+  }
+  .detail {
+    color: rgba(25, 138, 202, 0.79);
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 1146px;
+    top: 1174px;
+    width: 74px;
+  }
+  .line-3 {
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px 0 0 0;
+    width: 1270.73px;
+    height: 0px;
+    position: absolute;
+    left: 77.27px;
+    top: 1208px;
+    transform-origin: 0 0;
+    transform: rotate(0.078deg) scale(1, 1);
+  }
+  .rectangle-31 {
+    background: rgba(25, 138, 202, 0.9);
+    width: 98px;
+    height: 27px;
+    position: absolute;
+    left: 1134px;
+    top: 1239px;
+  }
+  .rectangle-37 {
+    background: rgba(237, 39, 21, 0.9);
+    border-radius: 0px 3px 3px 0px;
+    width: 98px;
+    height: 27px;
+    position: absolute;
+    left: 1232px;
+    top: 1239px;
+  }
+  .rectangle-36 {
+    background: rgba(25, 138, 202, 0.9);
+    border-radius: 3px 0px 0px 3px;
+    width: 98px;
+    height: 27px;
+    position: absolute;
+    left: 1036px;
+    top: 1239px;
+  }
+  .details {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font: 400 16px "Inter", sans-serif;
+    position: absolute;
+    left: 1149px;
+    top: 1243px;
+    width: 68px;
+  }
+  .delete {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font: 400 16px "Inter", sans-serif;
+    position: absolute;
+    left: 1247px;
+    top: 1243px;
+    width: 68px;
+  }
+  .confirm {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font: 400 16px "Inter", sans-serif;
+    position: absolute;
+    left: 1058px;
+    top: 1243px;
+    width: 68px;
+  }
+  .rectangle-33 {
+    background: rgba(255, 255, 255, 0.9);
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    left: 608px;
+    top: 2054px;
+  }
+  .rectangle-35 {
+    background: rgba(25, 138, 202, 0.9);
+    width: 39px;
+    height: 30px;
+    position: absolute;
+    left: 688px;
+    top: 2054px;
+  }
+  ._2 {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: left;
+    font: 400 12px "Inter", sans-serif;
+    position: absolute;
+    left: 702px;
+    top: 2061px;
+    width: 11px;
+  }
+  .rectangle-34 {
+    background: #ffffff;
+    width: 79px;
+    height: 30px;
+    position: absolute;
+    left: 727px;
+    top: 2054px;
+  }
+  .last {
+    color: #000000;
+    text-align: left;
+    font: 400 12px "Inter", sans-serif;
+    position: absolute;
+    left: 750px;
+    top: 2061px;
+    width: 32px;
+  }
+  .first {
+    color: #000000;
+    text-align: left;
+    font: 400 12px "Inter", sans-serif;
+    position: absolute;
+    left: 631px;
+    top: 2061px;
+    width: 33px;
+  }
+  .orders-list {
+    color: #198aca;
+    text-align: center;
+    font: 600 20px "Inter", sans-serif;
+    position: absolute;
+    left: 687px;
+    top: 1006px;
+  }
