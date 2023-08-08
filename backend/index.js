@@ -1,5 +1,6 @@
 const auth = require("./router/auth");
-const order = require("./router/order")
+const order = require("./router/order");
+const user = require("./router/user");
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -9,6 +10,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api', auth);
 app.use('/order', order);
-
+app.use('/user', user);
 
 var server = app.listen(3000, () => console.log(`Server is starting at port ${3000}`));
