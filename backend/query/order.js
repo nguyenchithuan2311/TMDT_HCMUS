@@ -14,8 +14,8 @@ async function getUOrder(req) {
     try {
         let pool = await sql.connect(config);
         let order = await pool.request()
-        .input('ID',sql.Char(5), req)
-        .query(`SELECT * from ORDER_DETAILS where @ID = ID`);
+        .input('USER_ID',sql.Char(5), req)
+        .query(`SELECT * from ORDER_DETAILS where @USER_ID = USER_ID`);
         return order.recordset
     }
     catch (error) {
