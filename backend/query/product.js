@@ -15,7 +15,19 @@ async function getProduct(req) {
         let pool = await sql.connect(config);
         let order = await pool.request()
         .input('ID',sql.Char(5), req)
-        .query(`SELECT * from PRODUCT P, PRODUT_CATEGORY_DETAILS PCD WHERE P.ID = PCD.PID`);
+        .query(`SELECT * from PRODUCT P, PRODUCT_CATEGORY_DETAILS PCD WHERE P.ID = PCD.PID AND P.ID = @ID`);
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
+async function searchProduct(req) {
+    try {
+        let pool = await sql.connect(config);
+        let order = await pool.request()
+        .input('INPUT',sql.Char(5), req)
+        .query(`SELECT * from PRODUCT P, PRODUCT_CATEGORY_DETAILS PCD WHERE P.ID = PCD.PID AND P.NAME LIKE '%${req}%'`);
         return order.recordset
     }
     catch (error) {
@@ -86,5 +98,6 @@ module.exports = {
     getProduct: getProduct,
     createProduct: createProduct,
     updateProduct: updateProduct,
-    deleteProduct: deleteProduct
+    deleteProduct: deleteProduct,
+    searchProduct: searchProduct
 }
