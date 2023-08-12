@@ -1,26 +1,41 @@
-import { Login } from './page/login';
+import { Login } from './components/login';
+import { ManageProduct} from './components/ManageProduct';
+import { Detailsproduct } from './components/Detailsproduct';
+import { Editaddproduct } from './components/Editaddproduct';
+import { Managecustomer } from './components/Managecustomer';
+import { Managepointadmin } from './components/Managepointadmin';
+import { Order } from './components/Order';
+import { Revenue } from './components/Revenue';
+import {User}  from'./components/User';
+import {BagProduct}  from'./components/BagProduct'
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 
-import {BrowserRouter,Routes,Route} from "react-router-dom"
-import { ManageProduct} from './page/ManageProduct';
-import { Order } from './page/Order';
-import { Revenue } from './page/Revenue';
-import { User } from './page/User';
-import { Managepointadmin } from './page/Managepointadmin';
-import { Managepointuser } from './page/Managepointuser';
-import { Managecustomer } from './page/Managecustomer';
-import { Detailsproduct } from './page/Detailsproduct';
-import { Editaddproduct } from './page/Editaddproduct';
 function App() {
   
   return (
     <div className="App">
-        <Editaddproduct />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/ManageProduct" element={<ManageProduct/>}/>
+          <Route path="/Detailsproduct" element={<Detailsproduct/>}/>
+          <Route path="/Managecustomer" element={<Managecustomer/>}/>
+          <Route path="/Editaddproduct" element={<Editaddproduct/>}/>
+          <Route path="/Managepointadmin" element={<Managepointadmin/>}/>
+          <Route path="/Order" element={<Order/>}/>
+          <Route path="/Revenue" element={<Revenue/>}/>
+          <Route path="/User" element={<User/>}/>
+          <Route path="/BagProduct" element={<BagProduct/>}/>
+          {/* <Route path="/login" element={<Login/>}/>
+          <Route path="/ManageProduct" element={<ManageProduct/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/ManageProduct" element={<ManageProduct/>}/> */}
+        </Routes>
+      </Router>
     </div>
   );
 }
-export default App;
-
- { <BrowserRouter>
+{/* <BrowserRouter>
       <Routes>
         <Route path="Login" element={<Login />} />
         <Route path="Profile" element={<Revenue />} />
@@ -31,4 +46,5 @@ export default App;
           <Route path="Revenue" element={<Revenue />} />          
         </Route>
       </Routes>
-    </BrowserRouter> }
+    </BrowserRouter> */}
+export default App;

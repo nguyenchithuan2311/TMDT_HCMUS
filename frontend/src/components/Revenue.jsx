@@ -1,8 +1,6 @@
 import "../css/Revenue.css"
 import Nav from "./nav"
-import icon_search from "../asset/img/magnifying-glass-solid.svg";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import order_image from "../asset/img/picture1.png";
 import image_Product from "../asset/img/shoe19_720x.webp"
 import { faStar} from "@fortawesome/free-solid-svg-icons";
 export const Revenue = () => {
@@ -11,8 +9,7 @@ export const Revenue = () => {
   
     return (
       <div>
-        <Nav/>   
-        <img src={order_image} alt="" className="order_image"/>
+        <Nav/>
         <div class="rectangle-10"></div>
         <div class="rectangle-11">
             <div class="catagories">Catagories</div>
@@ -104,7 +101,7 @@ export const Revenue = () => {
             <div class="quantity">Quantity</div>
             <div class="sold">Sold</div>
             <div class="line-7"></div>            
-            <img src={image_Product} alt="" className="image_Product"/>
+            <img src={image_Product} alt="" className="image_Product1"/>
             <div class="bast-shoe">BAST SHOE</div>
             <div class="yellow">Yellow</div>
             <div class="_70">$70</div>
