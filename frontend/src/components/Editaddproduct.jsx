@@ -38,7 +38,7 @@ export const Editaddproduct = () => {
             </div> 
             <div className="containerEdit">
             <div className="height-container">
-            <div class="height">Height</div>
+            <div class="height">Size</div>
             <input type="text" class="rectanglee-3"/>
             </div>
             <div className="color-container">
