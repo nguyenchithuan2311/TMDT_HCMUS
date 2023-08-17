@@ -14,4 +14,4 @@ app.use('/order', order);
 app.use('/user', user);
 app.use('/product', product);
 
-var server = app.listen(3000, () => console.log(`Server is starting at port ${3000}`));
+var server = app.listen(4000, () => console.log(`Server is starting at port ${4000}`));

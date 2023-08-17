@@ -1,13 +1,31 @@
 import "../css/Editaddproduct.css"
 import Nav from "./nav"
 import icon_search from "../asset/img/magnifying-glass-solid.svg";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import product from "../asset/img/shoe19_720x.webp"
 import { library } from "@fortawesome/fontawesome-svg-core";
-
+// import axios from 'axios';
+// import React, { useState, useEffect } from 'react';
 import { faStar} from "@fortawesome/free-solid-svg-icons";
 export const Editaddproduct = () => {
-
+    // const [name,setName]=useState('')
+    // const [address,setAdd]=useState('')
+    // const [email,setEmail]=useState('')
+    // const [Tel,setTel]=useState('')
+    
+    //   useEffect(() => {
+    //     axios({
+    //         method: 'get',
+    //         url: 'http://localhost:4000/user/1',
+    //       })
+    //     .then(response => {
+    //       setName(response.data[0].FIRST_NAME)
+    //       setAdd(response.data[0].ADDR_LINE1)
+    //       setEmail(response.data[0].USERNAME)
+    //       setTel(response.data[0].TEL)      
+    //     });
+    //   }, []);
+   
     library.add(faStar);
     const [showSelect, setShowSelect] = useState(false);
     const [showFileInput, setShowFileInput] = useState(false);

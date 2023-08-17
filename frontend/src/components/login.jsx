@@ -21,7 +21,9 @@ export const Login = () => {
     }
   })
   .then(result=>{
-   navigate("/ManageProduct")
+    console.log(result)
+    localStorage.setItem('session', result.data.session);
+    navigate("/ManageProduct")
   }
   )
   .catch(result=>{
