@@ -31,8 +31,7 @@ body {
   color: #198aca;
   text-align: center;
   font: 600 32px "Inter", sans-serif;
-  position: relative;
-  top: 100px; 
+  margin-top: 210px;
 }
 
 .line-3,
@@ -45,7 +44,7 @@ body {
   border-width: 1px 0 0 0;
   width: 1270.73px;
   height: 0px;
-  position: relative;
+  
   transform-origin: 0 0;
   transform: rotate(0.078deg) scale(1, 1);
   top: 120px;
@@ -60,10 +59,6 @@ body {
   color: #198aca;
   text-align: center;
   font: 600 20px "Inter", sans-serif;
-  position: relative;
-  width: 141px;
-  margin-left: 8rem;
-  top: 120px;
 }
 
 .image,
@@ -72,12 +67,9 @@ body {
 }
 .image {
   color: #198aca;
-  text-align: center;
   font: 600 20px "Inter", sans-serif;
-  position: relative;
-  width: 75px;
-  margin-left: 12rem;
-  top: 120px;
+  width: 119px;
+  margin-left: 190px;
 }
 
 .nameProduct,
@@ -86,12 +78,9 @@ body {
 }
 .nameProduct {
   color: #198aca;
-  text-align: center;
+  width: 144px;
   font: 600 20px "Inter", sans-serif;
-  position: relative;
-  width: 169px;
-  margin-left: 10rem;
-  top: 120px;
+  margin-left: 120px;
 }
 
 .amount,
@@ -102,7 +91,7 @@ body {
   color: #198aca;
   text-align: center;
   font: 600 20px "Inter", sans-serif;
-  position: relative;
+  
   width: 83px;
   margin-left: 8rem;
   top: 120px;
@@ -116,7 +105,7 @@ body {
   color: #198aca;
   text-align: center;
   font: 600 20px "Inter", sans-serif;
-  position: relative;
+  
   width: 83px;
   margin-left: 10rem;
   top: 120px;
@@ -130,7 +119,7 @@ body {
   color: #198aca;
   text-align: center;
   font: 600 20px "Inter", sans-serif;
-  position: relative;
+  
   width: 74px;
   margin-left: 10rem;
   top: 120px;
@@ -139,7 +128,6 @@ body {
     background: rgba(25, 138, 202, 0.05);
     width: 542px;
     height: 318px;
-    position: absolute;
     left: 800px;
     top: 400px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -153,7 +141,7 @@ body {
   color: #198aca;
   text-align: left;
   font: 600 32px "Inter", sans-serif;
-  position: relative;
+  
   margin-left: 2rem
 }
 
@@ -165,7 +153,7 @@ body {
   color: rgba(0, 0, 0, 0.7);
   text-align: left;
   font: 400 20px "Inter", sans-serif;
-  position: relative;
+  
   margin-left: 2rem
 }
 
@@ -174,7 +162,7 @@ body {
   border-radius: 1px;
   width: 55px;
   height: 55px;
-  position: relative;
+  
 }
 
 .momo{
@@ -182,7 +170,7 @@ body {
   color: rgba(0, 0, 0, 0.7);
   text-align: left;
   font: 400 20px "Inter", sans-serif;
-  position: relative;
+  
 }
 
 .stardust-checkbox__input-1{
@@ -194,7 +182,7 @@ body {
   border-width: 1px;
   width: 20px;
   height: 20px;
-  position: relative;
+  
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   margin-left: 2rem
 }
@@ -208,7 +196,7 @@ body {
   border-width: 1px;
   width: 20px;
   height: 20px;
-  position: relative;
+  
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   margin-left: 8rem
 }
@@ -217,7 +205,7 @@ body {
   color: rgba(0, 0, 0, 0.7);
   text-align: left;
   font: 400 20px "Inter", sans-serif;
-  position: relative;
+  
   margin-left: 2rem
 }
 
@@ -229,7 +217,7 @@ body {
   border-width: 1px;
   width: 254px;
   height: 33px;
-  position: relative;
+  
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   margin-left: 2rem
@@ -239,7 +227,7 @@ body {
   background: rgba(25, 138, 202, 0.05);
   width: 542px;
   height: 284px;
-  position: relative;
+  
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   left: 640px;
   top: 450px;
@@ -249,7 +237,7 @@ body {
   color: rgba(0, 0, 0, 0.7);
   text-align: left;
   font: 400 20px "Inter", sans-serif;
-  position: relative;
+  
   margin-left: 2rem
 }
 .button_payment{
@@ -260,7 +248,7 @@ body {
   );
   width: 466px;
   height: 61px;
-  position: relative;
+  
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
@@ -269,5 +257,45 @@ body {
   color: #ffffff;
   text-align: center;
   font: 400 24px "Inter", sans-serif;
-  position: relative;
+  
+}
+.Attributes{
+  display: flex;
+  justify-content: space-between;
+  margin: 50px;
+  margin-top: 200px;
+}
+.listProduct{
+  display: flex;
+  margin-top: 200px;
+  justify-content: space-between;
+  margin: 10px;
+  margin-left: 50px;
+}
+.image_Product1{
+  margin: 0px;
+  box-shadow: none;
+}
+.NameProduct1{
+  width: 144px;
+  margin-top: 30px;
+}
+.NumberProduct{
+  margin-top: 30px;
+  width: 13.25px;
+}
+.amount-1{
+  width: 83px;
+  margin-top: 30px;
+}
+.price-1{
+  width: 83px;
+  margin-top: 30px;
+}
+.total-1{
+  width: 74px;
+  margin-top: 30px;
+}
+.total_Address{
+  display: flex;
 }
