@@ -27,7 +27,6 @@ export const Profile = () => {
             console.log('reached');
         })
         .catch(error => {
-            console.log('patch reached')
             console.log(error);
         });;
     }
@@ -37,7 +36,6 @@ export const Profile = () => {
             url: `http://localhost:4000/user/${localStorage.getItem('session')}`,
           })
         .then(response => {
-            console.log('get reached')
           setName(response.data[0].FIRST_NAME)
           setAdd(response.data[0].ADDR_LINE1)
           setEmail(response.data[0].USERNAME)
