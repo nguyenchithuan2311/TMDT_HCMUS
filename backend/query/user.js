@@ -57,19 +57,6 @@ async function updateUser(req) {
         .input('tel', sql.Char(15), req.TEL)
         .input('add', sql.NChar(100), req.ADDR_LINE1)
         .execute(`updateUser`);
-        // const connection = new sql.connect(config);
-        // const query = `EXEC updateUser @Name = @FIRST_NAME, @Email = @USERNAME, @add = @ADDR, @tel = @TELE, @id = @UID`;
-        // connection.query(query, {
-        //     FIRST_NAME: req.FIRST_NAME,
-        //     USERNAME: req.USERNAME,
-        //     ADDR: req.ADDR_LINE1,
-        //     TELE: req.TEL,
-        //     UID: req.ID
-
-        //   }).then(resultSet => {
-        //     // Process the results of the query
-        //     console.log(resultSet.rows);
-        //   });
         console.log(order)
         return "Successful"
     }
