@@ -15,7 +15,7 @@ async function getProduct(req) {
         let pool = await sql.connect(config);
         let order = await pool.request()
         .input('ID',sql.Char(5), req)
-        .query(`SELECT P.ID, P.PANME, P.BRAND, PRICE, SIZE, COLOR, GENDER, PC.NAME, IMAGE  
+        .query(`SELECT P.ID AS PID, PNAME, BRAND, PRICE, SIZE, COLOR, GENDER, NAME, IMAGE  
         from PRODUCT P, PRODUCT_DETAILS PCD, PRODUCT_CATEGORY PC 
         WHERE P.ID = PCD.PID AND PCD.ID = @ID AND PC.ID = P.CATE_ID`);
         return order.recordset
@@ -64,15 +64,15 @@ async function updateProduct(req) {
         let pool = await sql.connect(config);
         let order = await pool.request()
         .input('id', sql.Char(5), req.ID)
-        .input('Name', sql.Char(40), req.PNAME)
+        .input('Name', sql.NChar(40), req.NAME)
         .input('Size', sql.Int, req.SIZE)
         .input('Gender', sql.Char(6), req.GENDER)
         .input('Category', sql.Char(40), req.CATEGORY)
         .input('Price', sql.Money, req.PRICE)
         .input('Brand', sql.Char(20), req.BRAND)
         .input('Color', sql.NChar(10), req.COLOR)
-        .input('Image', sql.VarBinary(MAX), req.IMAGE)
-        .query(`updateProduct`);
+        //.input('Image', sql.VarBinary(50), req.IMAGE)
+        .execute(`updateProduct`);
         return "Successful"
     }
     catch (error) {

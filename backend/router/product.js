@@ -1,7 +1,11 @@
 
 var express = require('express');
 var router = express.Router();
+var cors = require('cors');
 var dboperations=require('../query/product')
+
+router.use(cors())
+
 router.use((request,response,next)=>{
     console.log('middleware');
     next();
@@ -29,9 +33,10 @@ router.post('/',(req,res,next)=>{
     })
   })
 router.patch('/:id',(req,res,next)=>{
+  console.log(req.body);
   dboperations.updateProduct(req.body).then(result=>{
     console.log(result);
-    res.send('post reached');
+    res.send('patch reached');
     console.log(req.params);
   })
 })
