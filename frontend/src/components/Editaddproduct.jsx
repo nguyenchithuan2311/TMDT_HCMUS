@@ -4,78 +4,111 @@ import icon_search from "../asset/img/magnifying-glass-solid.svg";
 import React, { useState, useEffect } from 'react';
 import product from "../asset/img/shoe19_720x.webp"
 import { library } from "@fortawesome/fontawesome-svg-core";
-// import axios from 'axios';
-// import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import { faStar} from "@fortawesome/free-solid-svg-icons";
 export const Editaddproduct = () => {
-    // const [name,setName]=useState('')
-    // const [address,setAdd]=useState('')
-    // const [email,setEmail]=useState('')
-    // const [Tel,setTel]=useState('')
+    const [id,setID]=useState('')
+    const [pname,setPName]=useState('')
+    const [brand,setBrand]=useState('')
+    const [price,setPrice]=useState('')
+    const [size,setSize]=useState('')
+    const [color,setColor]=useState('')
+    const [gender,setGender]=useState('')
+    const [category,setCategory]=useState('')
+    const [image,setImage]=useState('')
+    function updateProduct(){
+        axios({
+            method: 'patch',
+            url: `http://localhost:4000/product/1`,
+            data: {
+                ID:id,
+                NAME:pname,
+                SIZE: size,
+                GENDER: gender,
+                CATEGORY: category,
+                PRICE: price,
+                BRAND: brand,
+                COLOR: color,
+                //IMAGE: image,
+              }
+          })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });;
+    }
+      useEffect(() => {
+        axios({
+            method: 'get',
+            url: `http://localhost:4000/product/1`,
+          })
+        .then(response => {
+            setID(response.data[0].PID)
+            setPName(response.data[0].PNAME)
+            setBrand(response.data[0].BRAND)
+            setPrice(response.data[0].PRICE)
+            setSize(response.data[0].SIZE)
+            setColor(response.data[0].COLOR)
+            setGender(response.data[0].GENDER)
+            setCategory(response.data[0].NAME)
+            setImage(response.data[0].IMAGE)      
+        });
+      }, []);
     
-    //   useEffect(() => {
-    //     axios({
-    //         method: 'get',
-    //         url: 'http://localhost:4000/user/1',
-    //       })
-    //     .then(response => {
-    //       setName(response.data[0].FIRST_NAME)
-    //       setAdd(response.data[0].ADDR_LINE1)
-    //       setEmail(response.data[0].USERNAME)
-    //       setTel(response.data[0].TEL)      
-    //     });
-    //   }, []);
-   
     library.add(faStar);
     const [showSelect, setShowSelect] = useState(false);
     const [showFileInput, setShowFileInput] = useState(false);
     return (
       <div>
         <Nav/>   
-        <div class="rectanglee-7">
-            <div class="edit-product">Edit Product</div>
-            <div class="product-namee">Product Name</div>
-            <input type="text" class="rectanglee-1"/>
+        <div className="rectanglee-7">
+            <div className="edit-product">Edit Product</div>
+            <div className="product-namee">Product Name</div>
+            <input type="text" className="rectanglee-1" value = {pname} onChange={(event) => setPName(event.target.value)}/>
             <div className="containerEdit">
                 <div className="brand-container">
-                    <div class="brand">Brand</div>
-                    <input type="text" class="rectanglee-2"/>
+                    <div className="brand">Brand</div>
+                    <input type="text" className="rectanglee-2" value = {brand} onChange={(event) => setBrand(event.target.value)}/>
                 </div>
-            <div class="price-container">
-            <div class="pricee">Price</div>
-            <input type="text" class="rectanglee-10"/>
+            <div className="price-container">
+            <div className="pricee">Price</div>
+            <input type="text" className="rectanglee-10" value = {price} onChange={(event) => setPrice(event.target.value)}/>
             </div>
-            <div class="gender-container">
-            <div class="gender">Gender</div>
-                <select class="rectanglee-12">
-                    <option value="option1">Nam</option>
-                    <option value="option2">Nữ</option>
-                    <option value="option3">Khác</option>
+            <div className="gender-container">
+            <div className="gender">Gender</div>
+                <select className="rectanglee-12" defaultValue = {gender} onChange={(event) => setGender(event.target.value)}>
+                    <option value="MEN">MEN</option>
+                    <option value="WOMEN">WOMEN</option>
+                    <option value="KIDS">KIDS</option>
                 </select>
-                </div>
+            </div>
             </div> 
             <div className="containerEdit">
             <div className="height-container">
-            <div class="height">Size</div>
-            <input type="text" class="rectanglee-3"/>
+            <div className="height">Size</div>
+            <input type="text" className="rectanglee-3" value = {size} onChange={(event) => setSize(event.target.value)}/>
             </div>
             <div className="color-container">
-            <div class="colore">Color</div>
-            <input type="text" class="rectanglee-11"/>
+            <div className="colore">Color</div>
+            <input type="text" className="rectanglee-11" value = {color} onChange={(event) => setColor(event.target.value)}/>
             </div>
             <div className="category-container">
-            <div class="categorye">Category</div>
-                <select className="rectanglee-14">
-                    <option value="option1">Running</option>
-                    <option value="option2">Nike</option>
-                    <option value="option3">Khác</option>
+            <div className="categorye">Category</div>
+                <select className="rectanglee-14" defaultValue = {category} onChange={(event) => setCategory(event.target.value)}>
+                    <option value="RUNNING">RUNNING</option>
+                    <option value="FOOTBALL">FOOTBALL</option>
+                    <option value="CASUAL">CASUAL</option>
+                    <option value="FORMAL">FORMAL</option>
                 </select>
             </div>
             </div>
-            <div class="imagee">Image</div>
+            <div className="imagee">Image</div>
                 <input type="file" className="rectanglee-15" onClick={() => setShowFileInput(true)}/>             
         </div>
-        <button class="rectanglee-8">Save Product</button>
+        <button onClick={updateProduct} className="rectanglee-8">Save Product</button>
       </div>      
     );
   };
