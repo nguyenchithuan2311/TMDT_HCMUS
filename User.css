@@ -1,0 +1,99 @@
+
+
+.rectangle1-12,
+.rectangle1-12 * {
+  box-sizing: border-box;
+}
+.rectangle1-12 {
+  background: #ffffff;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 90%;
+  min-height: 700px;
+  margin-left: 70px;
+  margin-top: 70px;
+}
+.user-list,
+.user-list * {
+  box-sizing: border-box;
+}
+.user-list {
+  color: rgba(25, 138, 202, 0.9);
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  position: relative;
+  margin-top : 20px;
+}
+.dif,
+.dif * {
+  box-sizing: border-box;
+}
+.dif {
+  color: #198aca;
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  
+ 
+}
+.name1,
+.name1 * {
+  box-sizing: border-box;
+}
+.name1 {
+  color: #198aca;
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  
+  margin-left: 55px;
+}
+.name2,
+.name2 * {
+  box-sizing: border-box;
+}
+.name2 {
+  color: #198aca;
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  
+  margin-left: 10px;
+}
+.email,
+.email * {
+  box-sizing: border-box;
+}
+.email {
+  color: #198aca;
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  
+  width: 291px;
+}
+.time1, .time2 {
+  color: #198aca;
+  text-align: center;
+  font: 600 20px "Inter", sans-serif;
+  position: relative;
+  right: 90px;
+}
+
+
+
+
+.containerUser1,.containerUser2{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+.containerUser1
+{
+  margin-top: 70px;
+  margin-left: 45px;
+}
+.containerUser2{
+  margin-top: 20px;
+ 
+  display: grid;
+  grid-template-columns: repeat(6, 3fr);
+}
+
