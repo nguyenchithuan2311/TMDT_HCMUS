@@ -3,7 +3,7 @@ const sql = require('mssql');
 async function getProducts() {
     try {
         let pool = await sql.connect(config);
-        let order = await pool.request().query(`SELECT * from PRODUCT P, PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID`);
+        let order = await pool.request().query(`SELECT P.ID, PNAME, DESCRRIPT, CATE_ID, PRICE, GENDER, BRAND, DISCOUNT_ID, IMAGE from PRODUCT P, PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID`);
         return order.recordset
     }
     catch (error) {
@@ -93,7 +93,7 @@ async function deleteProduct(req) {
     }
 }
 module.exports = {
-    getProduct: getProducts,
+    getProducts: getProducts,
     getProduct: getProduct,
     createProduct: createProduct,
     updateProduct: updateProduct,

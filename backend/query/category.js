@@ -12,9 +12,6 @@ async function getListCategory(req){
     }
 }
 
-module.exports = {
-    getListCategory: getListCategory
-}
 
 async function getCategory(req){
     try{
@@ -27,9 +24,7 @@ async function getCategory(req){
     }
 }
 
-module.exports = {
-    getCategory: getCategory
-}
+
 
 async function updateCategory(req) {
     try {
@@ -65,7 +60,8 @@ async function deleteCategory(req) {
     }
 }
 module.exports = {
+    getListCategory: getListCategory,
+    getCategory: getCategory,
     updateCategory: updateCategory,
     deleteCategory: deleteCategory
-
 }
