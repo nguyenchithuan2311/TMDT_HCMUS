@@ -1,14 +1,54 @@
 import "../App.css";
 import Nav from './nav';
-
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import icon_search from "../asset/img/magnifying-glass-solid.svg"
 import product from "../asset/img/shoe19_720x.webp"
+import Image from 'react-image';
+import {Buffer} from 'buffer';
 import bag from "../asset/img/bag-shopping-solid (1).svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faStar} from "@fortawesome/free-solid-svg-icons";
 export const ManageProduct = () => {
+  const [PNAME,setName]=useState('')
+    const [PRICE,setPrice]=useState('')
+    const [imageData, setImageData]=useState('')
+    const [Tel,setTel]=useState('')
 
+    function updateProduct(){
+        axios({
+            method: 'patch',
+            url: `http://localhost:4000/product/1`,
+            data: {
+                // PNAME: PNAME,
+                // ADDR_LINE1:address,
+                // USERNAME: email,
+                // TEL: Tel,
+                // ID: localStorage.getItem('session'),
+              }
+          })
+        .then(response => {
+            console.log('reached');
+        })
+        .catch(error => {
+            console.log(error);
+        });;
+    }
+      useEffect(() => {
+        axios({
+            method: 'get',
+            url: `http://localhost:4000/product/`,
+          })
+        .then(response => {
+          // setName(response.data[0].FIRST_NAME)
+          // setAdd(response.data[0].ADDR_LINE1)
+          setImageData(Buffer.from(response.data[0].IMAGE.data))
+          // setTel(response.data[0].TEL)      
+        });
+      }, []);
+      const base64Data = imageData.toString("base64")
+      console.log(base64Data)
 library.add(faStar);
 
   return (
@@ -58,7 +98,12 @@ library.add(faStar);
 
         
         </div>
-        <img src={product} alt="" className="image_Product"/>
+        {/* <Image
+        data={imageData}
+        width={100}
+        height={100}
+        /> */}
+        <img src={`data:image/png;base64,${base64Data}`} alt="" className="image_Product"/>
         <p className="NameProduct">BAST SHOES</p>
         <hr></hr>
         <div className="item_Price">
