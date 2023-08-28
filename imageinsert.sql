@@ -26,6 +26,9 @@ update PRODUCT set IMAGE = (select BulkColumn
 FROM Openrowset( Bulk 'D:\Desktop\shoes\nike-mercurial-vapor-13-elite-fg.png', Single_Blob) as image) where id = '8'
 
 update PRODUCT set IMAGE = (select BulkColumn 
+FROM Openrowset( Bulk 'D:\Desktop\shoes\nike-mercurial-vapor-13-elite-fg.png', Single_Blob) as image) where id = '9'
+  
+update PRODUCT set IMAGE = (select BulkColumn 
 FROM Openrowset( Bulk 'D:\Desktop\shoes\nike-mercurial-superfly-7-pro-mds-fg.png', Single_Blob) as image) where id = '10'
 
 update PRODUCT set IMAGE = (select BulkColumn 
