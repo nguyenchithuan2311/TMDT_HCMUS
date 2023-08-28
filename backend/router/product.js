@@ -25,6 +25,15 @@ router.get('/:id', (req,res)=>{
   })
   
 })
+router.get('/search/:name', (req,res)=>{
+  const {name} = req.params
+  dboperations.searchProduct(name).then(result=>{
+    console.log(result);
+    console.log(name);
+    res.send(result);
+  })
+  
+})
 router.post('/',(req,res,next)=>{
     dboperations.createProduct(req.body).then(result=>{
       console.log(result);
