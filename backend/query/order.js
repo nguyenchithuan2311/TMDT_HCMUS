@@ -10,6 +10,16 @@ async function getOrders() {
         return error
     }
 }
+async function getRevenue() {
+    try {
+        let pool = await sql.connect(config);
+        let order = await pool.request().query(`SELECT id, total, created_at, modified_at from ORDER_DETAILS`);
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
 async function getUOrder(req) {
     try {
         let pool = await sql.connect(config);
@@ -77,6 +87,7 @@ async function deleteOrders(req) {
 }
 module.exports = {
     getOrders: getOrders,
+    getRevenue: getRevenue,
     getUOrder: getUOrder,
     createOrders: createOrders,
     updateOrders: updateOrders,

@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import { faStar} from "@fortawesome/free-solid-svg-icons";
 export const Editaddproduct = () => {
+    const currentUrl = window.location.href.slice(37, window.location.href.length);
     const [id,setID]=useState('')
     const [pname,setPName]=useState('')
     const [brand,setBrand]=useState('')
@@ -20,7 +21,7 @@ export const Editaddproduct = () => {
     function updateProduct(){
         axios({
             method: 'patch',
-            url: `http://localhost:4000/product/1`,
+            url: `http://localhost:4000/product/${currentUrl}`,
             data: {
                 ID:id,
                 NAME:pname,
@@ -43,9 +44,10 @@ export const Editaddproduct = () => {
       useEffect(() => {
         axios({
             method: 'get',
-            url: `http://localhost:4000/product/1`,
+            url: `http://localhost:4000/product/${currentUrl}`,
           })
         .then(response => {
+            
             setID(response.data[0].PID)
             setPName(response.data[0].PNAME)
             setBrand(response.data[0].BRAND)

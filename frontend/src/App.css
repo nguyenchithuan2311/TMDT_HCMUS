@@ -218,7 +218,7 @@ cursor: pointer;
 .Product
 {
   width: 63rem;
-  min-height: 63rem;
+  height: 72rem;
   border: #000 solid 0.5px;
   /* Rectangle 33 */
 box-sizing: border-box;
@@ -275,9 +275,10 @@ font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
 font-size: 20px;
-width: 50%;
+width: 160px;
+height: 72px;
 color: #000000;
-margin-left: 7rem;
+margin-left: 5rem;
 }
 .bag
 {

@@ -3,7 +3,8 @@ const sql = require('mssql');
 async function getProducts() {
     try {
         let pool = await sql.connect(config);
-        let order = await pool.request().query(`SELECT P.ID, PNAME, DESCRRIPT, CATE_ID, PRICE, GENDER, BRAND, DISCOUNT_ID, IMAGE from PRODUCT P, PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID`);
+        let order = await pool.request().query(`SELECT P.ID, PNAME, DESCRRIPT, CATE_ID, PRICE, GENDER, BRAND, DISCOUNT_ID, IMAGE from PRODUCT P`);
+        //PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID
         return order.recordset
     }
     catch (error) {
@@ -12,6 +13,7 @@ async function getProducts() {
 }
 async function getProduct(req) {
     try {
+        console.log(req)
         let pool = await sql.connect(config);
         let order = await pool.request()
         .input('ID',sql.Char(5), req)
@@ -28,8 +30,8 @@ async function searchProduct(req) {
     try {
         let pool = await sql.connect(config);
         let order = await pool.request()
-        .input('INPUT',sql.Char(5), req)
-        .query(`SELECT * from PRODUCT P, PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID AND P.NAME LIKE '%${req}%'`);
+        .input('INPUT',sql.Char(40), req)
+        .query(`SELECT * from PRODUCT P, PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID AND P.PNAME LIKE '%${req}%'`);
         return order.recordset
     }
     catch (error) {

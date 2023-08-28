@@ -1,13 +1,22 @@
 
 var express = require('express');
 var router = express.Router();
+var cors = require('cors');
 var dboperations=require('../query/order')
+
+router.use(cors())
 router.use((request,response,next)=>{
     console.log('middleware');
     next();
   })
 router.get('/', (req,res)=>{
   dboperations.getOrders().then(result=>{
+    res.send(result);
+  })
+  
+})
+router.get('/revenue',(req,res)=>{
+  dboperations.getRevenue().then(result=>{
     res.send(result);
   })
   

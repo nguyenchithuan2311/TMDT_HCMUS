@@ -4,6 +4,7 @@ import { Detailsproduct } from './components/Detailsproduct';
 import { Editaddproduct } from './components/Editaddproduct';
 import { Managecustomer } from './components/Managecustomer';
 import { Managepointadmin } from './components/Managepointadmin';
+import { Managepointuser } from './components/Managepointuser';
 import { Profile } from './components/Profile';
 import { Order } from './components/Order';
 import { Revenue } from './components/Revenue';
@@ -21,8 +22,9 @@ function App() {
           <Route path="/ManageProduct" element={<ManageProduct/>}/>
           <Route path="/Detailsproduct" element={<Detailsproduct/>}/>
           <Route path="/Managecustomer" element={<Managecustomer/>}/>
-          <Route path="/Editaddproduct" element={<Editaddproduct/>}/>
+          <Route path="/Editaddproduct/:id" element={<Editaddproduct/>}/>
           <Route path="/Managepointadmin" element={<Managepointadmin/>}/>
+          <Route path="/Managepointuser" element={<Managepointuser/>}/>
           <Route path="/Profile" element={<Profile/>}/>
           <Route path="/Order" element={<Order/>}/>
           <Route path="/Revenue" element={<Revenue/>}/>
