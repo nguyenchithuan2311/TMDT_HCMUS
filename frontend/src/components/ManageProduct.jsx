@@ -18,7 +18,7 @@ import ReactPaginate from 'react-paginate';
 export const ManageProduct = () => {
     const [products, setProducts] = useState([])
     const [search, setSearch] = useState([])
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(10);
 
     const navigate=useNavigate()
@@ -99,8 +99,8 @@ library.add(faStar);
       </div>))}
       </ul>
       <div>
-        <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-        <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+        <button onClick={() => setCurrentPage(currentPage - 1>=0?currentPage - 1:5)}>Previous</button>
+        <button onClick={() => setCurrentPage(currentPage + 1<=5?currentPage + 1:0)}>Next</button>
       </div>
     </div>
     </div>
