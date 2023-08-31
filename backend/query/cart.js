@@ -1,55 +1,27 @@
 var config = require('../config/dbconfig');
 const sql = require('mssql');
-async function getProducts() {
+async function getCart(req) {
     try {
         let pool = await sql.connect(config);
-        let order = await pool.request().query(`SELECT * from PRODUCT P, PRODUT_CATEGORY_DETAILS PCD WHERE P.ID = PCD.PID`);
+        let order = await pool.request().query(`SELECT IMAGE, PNAME, CI.QUANTITY, P.PRICE, SS.TOTAL  
+                                                from CART_ITEM CI, SHOPPING_SESSION SS, PRODUCT P, PRODUCT_DETAILS PD
+                                                WHERE CI.SESSION_ID = SS.ID`);
         return order.recordset
     }
     catch (error) {
         return error
     }
 }
-async function getProduct(req) {
+
+async function addCart(req) {
     try {
         let pool = await sql.connect(config);
         let order = await pool.request()
-        .input('ID',sql.Char(5), req)
-        .query(`SELECT * from PRODUCT P, PRODUCT_CATEGORY_DETAILS PCD WHERE P.ID = PCD.PID AND P.ID = @ID`);
-        return order.recordset
-    }
-    catch (error) {
-        return error
-    }
-}
-async function searchProduct(req) {
-    try {
-        let pool = await sql.connect(config);
-        let order = await pool.request()
-        .input('INPUT',sql.Char(5), req)
-        .query(`SELECT * from PRODUCT P, PRODUCT_CATEGORY_DETAILS PCD WHERE P.ID = PCD.PID AND P.NAME LIKE '%${req}%'`);
-        return order.recordset
-    }
-    catch (error) {
-        return error
-    }
-}
-async function createProduct(req) {
-    try {
-        let pool = await sql.connect(config);
-        let order = await pool.request()
-        .input('ID', sql.Char(5), req.ID)
-        .input('PNAME', sql.Char(5), req.USER_ID)
-        .input('DESCRIPT', sql.Decimal, req.TOTAL)
-        .input('SKU', sql.Int, req.POINT)
-        .input('CATE_ID', sql.Char(5), req.PAYMENT_ID)
-        .input('PRICE', sql.NChar(20), req.STATUS)
-        .input('QUANTITY', sql.Char(5), req.PAYMENT_ID)
-        .input('DISCOUNT_ID', sql.NChar(20), req.STATUS)
-        .input('CREATED_AT', sql.DateTime, req.CREATED_AT)
-        .input('MODIFIED_AT', sql.DateTime, req.MODIFIED_AT)
-        .query(`INSERT INTO PRODUCT VALUES(@ID,@PNAME,@DESCRIPT,@SKU
-              ,@CATE_ID,@PRICE, @QUANTITY, @DISCOUNT_ID,@CREATED_AT,@MODIFIED_AT);`);
+        .input('PRODUCT_ID', sql.Char(5), req.PRODUCT_ID)
+        .input('SESSION_ID', sql.Char(5), req.SESSION_ID)
+        .input('QUANTITY', sql.Int, req.QUANTITY)
+        .input('TOTAL', sql.Money, req.TOTAL)
+        .execute(`addCart`);
         return "Successful"
     }
     catch (error) {
@@ -94,10 +66,8 @@ async function deleteProduct(req) {
     }
 }
 module.exports = {
-    getProduct: getProducts,
-    getProduct: getProduct,
-    createProduct: createProduct,
+    getCart: getCart,
+    addCart: addCart,
     updateProduct: updateProduct,
     deleteProduct: deleteProduct,
-    searchProduct: searchProduct
 }
