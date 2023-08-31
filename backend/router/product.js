@@ -25,11 +25,20 @@ router.get('/:id', (req,res)=>{
   })
   
 })
+router.get('/customer/:id', (req,res)=>{
+  const {id} = req.params
+  dboperations.getProductCus(id).then(result=>{
+    console.log(result);
+    console.log(id);
+    res.send(result);
+  })
+  
+})
 router.get('/search/:name', (req,res)=>{
   const {name} = req.params
   dboperations.searchProduct(name).then(result=>{
     console.log(result);
-    console.log(name);
+    console.log(name.length);
     res.send(result);
   })
   

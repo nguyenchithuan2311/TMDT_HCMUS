@@ -1,7 +1,10 @@
 
 var express = require('express');
 var router = express.Router();
+var cors = require('cors');
 var dboperations=require('../query/cart')
+router.use(cors())
+
 router.use((request,response,next)=>{
     console.log('middleware');
     next();
@@ -16,10 +19,10 @@ router.get('/:id', (req,res)=>{
   
 })
 router.post('/',(req,res,next)=>{
-    dboperations.addProduct(req.body).then(result=>{
+    dboperations.addCart(req.body).then(result=>{
       console.log(result);
       res.send('post reached');
-      console.log(req.body.ID);
+      console.log(req.body);
     })
   })
 router.patch('/:id',(req,res,next)=>{

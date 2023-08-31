@@ -22,28 +22,25 @@ export const ManageProduct = () => {
     const [totalPages, setTotalPages] = useState(10);
 
     const navigate=useNavigate()
-      useEffect(() => {
-        axios({
-            method: 'get',
-            url: `http://localhost:4000/product/`,
-          })
-        .then(response => {
-          console.log(response.data)
-          setProducts(response.data)
-          //setImageData(Buffer.from(response.data[0].IMAGE.data))     
-        });
-      }, []);
-      //const base64Data = imageData.toString("base64")
+    useEffect(() => {
+      axios({
+          method: 'get',
+          url: `http://localhost:4000/product/`,
+        })
+      .then(response => {
+        console.log(response.data)
+        setProducts(response.data) 
+      });
+    }, []);
       function handleKeyDown(event){
         if (event.key === 'Enter') {
-          // 👇 Get input value
             axios({
                 method: 'get',
                 url: `http://localhost:4000/product/search/${search}`,
               })
             .then(response => {
-
-              setProducts(response.data)  
+              setProducts(response.data)
+              setCurrentPage(0)
             });
         }
       };
@@ -88,7 +85,7 @@ library.add(faStar);
     <div className="Product">
     <ul>
     {products.slice(currentPage * 6, (currentPage + 1) * 6).map((PRODUCT) => (<div className="introduce_product"><Link to={`/Editaddproduct/${PRODUCT.ID}`} >
-        <img src={product} alt="" className="image_Product" />
+        <img src={`data:image/png;base64,${Buffer.from(PRODUCT.IMAGE.data).toString("base64")}`} alt="" className="image_Product" />
         <p className="NameProduct">{PRODUCT.PNAME}</p>
         <hr></hr>
         <div className="item_Price">

@@ -1,49 +1,176 @@
 import "../css/Detailsproduct.css"
 import Nav from "./nav"
-import icon_search from "../asset/img/magnifying-glass-solid.svg";
-import product from "../asset/img/shoe19_720x.webp"
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faStar} from "@fortawesome/free-solid-svg-icons";
-export const Detailsproduct = () => {
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
+import { Buffer } from "buffer";
+import { useNavigate } from "react-router-dom";
 
+export const Detailsproduct = () => {
+    const [productDetail,setProductDetail ] = useState([{productDetail:[]}]);
+    const currentUrl = window.location.href.slice(37, window.location.href.length);
+    const navigate=useNavigate()
+    var size=[] 
+    var color=[]
+    const [imageData, setImageData] = useState(Buffer.from('...'));
+    const [sizePick, setSize] = useState(1)
+    const [colorPick, setColor] = useState('')
+    function addToCart(){
+      let product_id = '';
+      for(let i=0;i<productDetail.length;i=i+1){
+        if(productDetail[i].SIZE == sizePick && productDetail[i].COLOR == colorPick) {
+          product_id = productDetail[i].ID
+          console.log(product_id)
+        }
+      }
+      axios({
+          method: 'post',
+          url: `http://localhost:4000/cart`,
+          data: {
+              PRODUCT_ID: product_id.trim(),
+              SESSION_ID: '1',//localStorage.getItem('session'),
+              QUANTITY: amount,
+              TOTAL: amount * productDetail[0].PRICE  
+            }
+        })
+      .then(response => {
+          console.log('reached');
+      })
+      .catch(error => {
+          console.log(error);
+      });;
+  }
+
+  function buyItNow(){
+    addToCart()
+    navigate("/BagProduct")
+  }
+
+  useEffect(()=>{
+      axios({
+        method: 'get',
+        url: `http://localhost:4000/product/customer/${currentUrl}`,
+      })
+        .then(result => {
+          setProductDetail(result.data);
+          setImageData(Buffer.from(productDetail[0].IMAGE.data).toString("base64"));
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      
+  }, []);
     library.add(faStar);
-  
+    const[amount,setamount]=useState(1)
+    const incrementNumber = () => {
+        setamount(amount + 1);
+      };
+      const decreamentNumber = () => {
+        setamount(amount - 1);
+        if(amount<=1)
+        {
+            setamount(1);
+        }
+      };
+    function hanldeSize()
+    {
+      for(let i=0;i<productDetail.length;i=i+1)
+      {
+        color.push(productDetail[i].COLOR)
+        size.push(productDetail[i].SIZE)
+      }
+      size = Array.from(new Set(size));
+      color = Array.from(new Set(color));
+    }
+    hanldeSize()
+    function handleImage(){
+      axios({
+        method: 'get',
+        url: `http://localhost:4000/product/customer/${currentUrl}`,
+      })
+        .then(result => {
+          if(imageData === "object"){
+            console.log(imageData)
+            setImageData(Buffer.from(imageData).toString('base64'))
+          }
+          else{
+            setImageData(Buffer.from(result.data[0].IMAGE.data).toString("base64"));
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+    handleImage()
     return (
       <div>
         <Nav/>
         <div className="containerDetailsproduct">
-        <img src={product} alt="" className="product"/>
+        <img src={`data:image/png;base64,${imageData}`} onLoad = {handleImage} alt="" className="product"/>
         <div className="information">
-        <div class="bast-shoed">Bast shoe</div>
+        <div class="bast-shoed">Name: {productDetail[0].PNAME}</div>
         <div class="priced">Price:
-            <div class="_106-00">$106.00</div>
+            <div class="_106-00">{productDetail[0].PRICE}.00$</div>
         </div>
         
-        <div class="sized">Size:
-            <button class="rectangled-10">7</button>
-            <button class="rectangled-11">8</button>
-            <button class="rectangled-12">9</button>
+        <div class="sized">
+          <p>Size:</p>
+        {size.map((size)=> (
+            <button type="checkbox" class="rectangled-10" onClick={(e) => {
+              var list=document.querySelectorAll(".rectangled-10")
+              for(var i=0;i<list.length;i=i+1)
+              {
+                if(list[i].style.backgroundColor != "")
+                {
+                  list[i].style.backgroundColor = "white"
+                }
+              }
+              e.target.style.backgroundColor = "blue"
+              setSize(size)
+              }}>
+              {size}
+            </button>
+          ))}
         </div>
-        <div class="colord">Color:
-            <button class="rectangled-13"></button>
-            <button class="rectangled-14"></button>
-            <button class="rectangled-15"></button>
+
+        <div class="colord">
+          <p>Color:</p>
+        {color.map((colors)=> (
+            <button type="checkbox" class="rectangled-13" onClick={(e) => {
+              var list=document.querySelectorAll(".rectangled-13")
+              for(var i=0;i<list.length;i=i+1)
+              {
+                if(list[i].style.borderColor != "")
+                {
+                  list[i].style.borderColor = "white"
+                }
+              }
+              e.target.style.borderColor = "blue"
+              setColor(colors)
+              }} style={{backgroundColor:`${colors}`}}>
+            </button>
+          ))}
         </div>
-        <div class="quantityd">Quantity:
+
+        <div class="quantityd">
+          <p>Quantity:</p>
             <button class="rectangled-16">
-                <div class="">-</div>
+                <div class=""onClick={decreamentNumber}>-</div>
             </button>
             <div class="rectangled-17">
-                <div class="_1">1</div>
+                <div class="_1">{amount}</div>
             </div>
-            <button class="rectangled-18">+</button>
+            <button class="rectangled-18" onClick={incrementNumber}>+</button>
         </div>
+
         <div class='button'>
-        <button class="rectangled-19">ADD TO CART</button>
-        <button class="rectangled-20">BUY IT NOW</button>
+        <button onClick = {addToCart} class="rectangled-19">ADD TO CART</button>
+        <button onClick = {buyItNow} class="rectangled-20">BUY IT NOW</button>
         </div>
       </div>
       </div>
       </div>
     );
   };
+
