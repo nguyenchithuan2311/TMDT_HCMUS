@@ -459,8 +459,18 @@
   bottom: 1300px;
   top: 660px;
 }
-
-
+.rectangle6-12{
+  width: 100%;
+}
+.container3{
+  width: 80%;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+.chart-container{
+  width: 95%;
+  margin: auto;
+}
 
 
 

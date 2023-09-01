@@ -28,7 +28,6 @@
   min-height: 700px;
   max-width: 1300px;
 }
-Copy
 .orders-list,
 .orders-list * {
   box-sizing: border-box;
@@ -224,6 +223,7 @@ Copy
 
 .status_goods{
   width: 83px;
+  margin-left: 60px;
 }
 ._1u
 {
@@ -231,4 +231,15 @@ Copy
 }
 .detail_goods{
   margin-right: 20px;
+  margin-top: 0px;
+}
+.address_user{
+  width: 440px;
+  text-align: center;
+  margin-left: 16px;
+}
+.user_user{
+  width: 220px;
+  text-align: center;
+  margin-left: 16px;
 }
