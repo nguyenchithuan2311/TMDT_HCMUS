@@ -7,20 +7,24 @@ var dboperations=require('../query/product')
 router.use(cors())
 
 router.use((request,response,next)=>{
-    console.log('middleware');
     next();
   })
-router.get('/', (req,res)=>{
+router.get('/product', (req,res)=>{
   dboperations.getProducts().then(result=>{
     res.send(result);
   })
   
 })
+router.get('/product/brand', (req,res)=>{
+    dboperations.getBrands().then(result=>{
+     
+      res.send(result);
+    })
+    
+  })
 router.get('/:id', (req,res)=>{
   const {id} = req.params
   dboperations.getProduct(id).then(result=>{
-    console.log(result);
-    console.log(id);
     res.send(result);
   })
   
@@ -28,8 +32,29 @@ router.get('/:id', (req,res)=>{
 router.get('/customer/:id', (req,res)=>{
   const {id} = req.params
   dboperations.getProductCus(id).then(result=>{
-    console.log(result);
-    console.log(id);
+    res.send(result);
+  })
+  
+})
+router.post('/',(req,res,next)=>{
+    dboperations.createProduct(req.body).then(result=>{
+      
+      res.send('post reached');
+     
+    })
+  })
+router.patch('/:id',(req,res,next)=>{
+ 
+  dboperations.updateProduct(req.body).then(result=>{
+    
+    res.send('patch reached');
+    
+  })
+})
+router.delete('/:id', (req,res)=>{
+  const {id} = req.params
+  dboperations.deleteProduct(id).then(result=>{
+    
     res.send(result);
   })
   
@@ -37,32 +62,6 @@ router.get('/customer/:id', (req,res)=>{
 router.get('/search/:name', (req,res)=>{
   const {name} = req.params
   dboperations.searchProduct(name).then(result=>{
-    console.log(result);
-    console.log(name.length);
-    res.send(result);
-  })
-  
-})
-router.post('/',(req,res,next)=>{
-    dboperations.createProduct(req.body).then(result=>{
-      console.log(result);
-      res.send('post reached');
-      console.log(req.body.ID);
-    })
-  })
-router.patch('/:id',(req,res,next)=>{
-  console.log(req.body);
-  dboperations.updateProduct(req.body).then(result=>{
-    console.log(result);
-    res.send('patch reached');
-    console.log(req.params);
-  })
-})
-router.delete('/:id', (req,res)=>{
-  const {id} = req.params
-  dboperations.deleteProduct(id).then(result=>{
-    console.log(result);
-    console.log(id);
     res.send(result);
   })
   

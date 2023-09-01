@@ -8,9 +8,19 @@ GO;
 
 CREATE PROCEDURE updateProduct @PName nchar(40), @Brand char(20), @Size int, @Price money, @Color nchar(10), @Gender Char(6), @Category Char(40),@id char(5)
 AS
-update PRODUCT set PNAME = @PName, PRICE = @Price, GENDER = @Gender where ID = @id
-update product set product.CATE_ID = (select pc.id from PRODUCT_CATEGORY pc where pc.name = @Category) where product.id = @id
-update PRODUCT_DETAILS set SIZE = @Size, COLOR = @Color where PID = @id
+  IF EXISTS (SELECT ID FROM PRODUCT WHERE ID = @id)
+BEGIN
+  update PRODUCT set PNAME = @PName, PRICE = @Price, GENDER = @Gender where ID = @id
+  update product set product.CATE_ID = (select pc.id from PRODUCT_CATEGORY pc where pc.name = @Category) where product.id = @id
+  update PRODUCT_DETAILS set SIZE = @Size, COLOR = @Color where PID = @id
+END
+ELSE
+BEGIN
+  INSERT INTO PRODUCT(ID, PNAME, CATE_ID, PRICE, GENDER, BRAND) 
+  VALUES((SELECT COUNT(*) FROM PRODUCT)+1, @PName, (SELECT PC.ID FROM PRODUCT_CATEGORY PC WHERE PC.NAME = @Category), @Price, @Gender, @Brand)
+  INSERT INTO PRODUCT_DETAILS(ID, PID, COLOR, SIZE)
+  VALUES((SELECT COUNT(*) FROM PRODUCT_DETAILS)+1, (SELECT COUNT(*) FROM PRODUCT), @Color, @Size)
+END
 go;
 
 CREATE PROCEDURE addCart @SESSION_ID CHAR(5), @PRODUCT_ID CHAR(5), @QUANTITY INT, @TOTAL MONEY
@@ -24,6 +34,4 @@ BEGIN
     INSERT INTO CART_ITEM(ID, PRODUCT_ID, SESSION_ID, QUANTITY, TOTAL) VALUES((SELECT COUNT(*) FROM CART_ITEM)+1, @PRODUCT_ID, @SESSION_ID, @QUANTITY, @TOTAL)
 END 
   UPDATE SHOPPING_SESSION SET TOTAL = (SELECT SUM(TOTAL) FROM CART_ITEM CI WHERE SESSION_ID = @SESSION_ID) WHERE ID = @SESSION_ID
-
-exec addCart @SESSION_ID = '1', @PRODUCT_ID = '1', @QUANTITY = 1, @TOTAL = 100
 go;

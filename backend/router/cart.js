@@ -41,4 +41,13 @@ router.delete('/:id', (req,res)=>{
   })
   
 })
+router.get('/cart/:id', (req,res)=>{
+  const {id} = req.params
+  dboperations.getCart(id).then(result=>{
+    console.log(result);
+    console.log(id);
+    res.send(result);
+  })
+  
+})
   module.exports = router;

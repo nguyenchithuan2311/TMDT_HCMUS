@@ -140,17 +140,18 @@ left: 27rem;
 {
   margin-left: 102px;
   width:90%;
+  margin-top: 20px;
 }
 .search
 {
-  width: 90%;
-  height: 2rem;
+  width: 90%!important;
+  height: 2rem!important;
   padding-left:5rem ;
 }
 .SearchProduct>img{
   position: absolute;
   height: 1rem;
-  top: 50.6rem;
+  top: 52.35rem;
   margin-left: 60px;
 }
 .square {
@@ -218,7 +219,7 @@ cursor: pointer;
 .Product
 {
   width: 63rem;
-  height: 72rem;
+  min-height: 63rem;
   border: #000 solid 0.5px;
   /* Rectangle 33 */
 box-sizing: border-box;
@@ -227,6 +228,7 @@ border: 1px solid #000000;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 margin-top: 40px;
 margin-left: 53px;
+margin-bottom: 5rem;
 }
 .image_Product
 {
@@ -264,25 +266,25 @@ font-style: normal;
 font-weight: 900;
 font-size: 20px;
 line-height: 24px;
-text-align: center;
 width: 40%;
-padding-left: 3rem;
 color: #000000;
+margin-left: 16px;
 }
 .NameProduct
 {
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 20px;
-width: 160px;
-height: 72px;
-color: #000000;
-margin-left: 5rem;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  width: 100%;
+  color: #000000;
+  text-align: center;
+  text-decoration: none;
 }
 .bag
 {
-  margin: auto;
+  margin-left: 100px;
+  margin-top: 14px;
   height: 2rem;
   width: 2rem;
 }
@@ -377,7 +379,8 @@ color: #198ACA;
 }
 .midNavright>input
 {
- height: 70%;
+ height: 70% !important;
+ margin: 0!important;
 }
 .searchNav
 {
@@ -423,4 +426,13 @@ color: #198ACA;
 }
 .MannageProductCotainer_big{
   display: flex;
+}
+.introduce_product>a{
+  text-decoration: none;
+  color: inherit;
+}
+.paging1{
+  margin-left: 26rem;
+  margin-top: 61rem;
+  margin-bottom: 2rem;
 }

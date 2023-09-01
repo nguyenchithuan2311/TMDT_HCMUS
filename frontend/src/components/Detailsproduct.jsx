@@ -17,11 +17,10 @@ export const Detailsproduct = () => {
     const [sizePick, setSize] = useState(1)
     const [colorPick, setColor] = useState('')
     function addToCart(){
-      let product_id = '';
+      var product_id = '';
       for(let i=0;i<productDetail.length;i=i+1){
         if(productDetail[i].SIZE == sizePick && productDetail[i].COLOR == colorPick) {
           product_id = productDetail[i].ID
-          console.log(product_id)
         }
       }
       axios({
@@ -173,4 +172,3 @@ export const Detailsproduct = () => {
       </div>
     );
   };
-

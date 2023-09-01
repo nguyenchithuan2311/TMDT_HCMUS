@@ -3,9 +3,21 @@ import Nav from "./nav"
 import icon_search from "../asset/img/magnifying-glass-solid.svg";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faStar} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import React, { useState, useEffect } from 'react';
 export const Order = () => {
     library.add(faStar);
-  
+    const [userOrder, setuserOrder] = useState([]);
+    useEffect(()=>{
+      axios({
+            method: 'get',
+            url: 'http://localhost:4000/order/order',
+           })
+           .then(result=>{
+            setuserOrder(result.data)})
+          .catch(result=>{
+           })
+    },[]);
     return (
       <div>
         <Nav/>   
@@ -19,16 +31,17 @@ export const Order = () => {
             <div class="detail">Detail</div>
             </div>
             <div class="line2-3"></div>
-            <div className="containerOrder">
-            <div class="_1u">1</div>
-            <div class="user_user">nguyenchithuan55@gmail.com</div>
-            <div class="address_user">53 Đ. Quảng Hàm, Phường 5, Gò Vấp, Thành phố Hồ Chí Minh</div>
-            <div class="status_goods">Processing</div>
-            <button className="detail_goods" >Confirm</button>
-            </div>
+            
+            {userOrder.map((userOrder)=>(<div className="containerOrder">
+            <div class="_1u">{userOrder.ID}</div>
+            <div class="user_user">{userOrder.USERNAME}</div>
+            <div class="address_user">{userOrder.ADDR_LINE1 + userOrder.CITY}</div>
+            <div class="status_goods">{userOrder.STATUS}</div>
+            <button className="detail_goods" >Details</button>
+            </div>))}
+            
         </div>
       </div>      
     );
   };
   
-

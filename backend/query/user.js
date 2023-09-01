@@ -1,9 +1,16 @@
 var config = require('../config/dbconfig');
+var moment = require('moment');
 const sql = require('mssql');
 async function getUsers() {
     try {
         let pool = await sql.connect(config);
         let order = await pool.request().query(`SELECT * from USER_INFO`);
+        for (let i = 0; i < order.recordset.length; i++) {
+            console.log(order.recordset[i].CREATED_AT)
+            order.recordset[i].CREATED_AT = moment(order.recordset[i].CREATED_AT).format('YYYY-MM-DD');
+            order.recordset[i].MODIFIED_AT = moment(order.recordset[i].MODIFIED_AT).format('YYYY-MM-DD');
+          }
+        console.log(order.recordset)
         return order.recordset
     }
     catch (error) {

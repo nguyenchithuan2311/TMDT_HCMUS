@@ -1,13 +1,39 @@
 import "../css/BagProduct.css";
 import Nav from './nav';
 import product from "../asset/img/shoe19_720x.webp"
-//import icon_search from "../asset/img/magnifying-glass-solid.svg"
-//import product from "../asset/img/shoe19_720x.webp"
-//import bag from "../asset/img/bag-shopping-solid (1).svg"
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import { library } from "@fortawesome/fontawesome-svg-core";
-//import { Label } from "@mui/icons-material";
-export const BagProduct = () => {return (
+import React, { useState, useEffect} from 'react';
+import Paypal from "../asset/img/196566.png"
+import axios from 'axios';
+import { Buffer } from "buffer";
+export const BagProduct = () => {
+  
+  const [cartOrder,setCartOrder ] = useState([]);
+  function data()
+  {
+    axios({
+      method: 'get',
+      url: `http://localhost:4000/cart/cart/1`,
+    })
+      .then(result => {
+        setCartOrder(result.data);
+        
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+ data()
+ var sum
+ function x(){
+  let sum=0;
+  for(var i=0;i<cartOrder.length;i=i+1)
+  {
+    sum=sum+cartOrder[i].TOTAL
+  }
+  return sum
+ }
+ sum=x()
+  return (
     <div>
     <Nav/>
     <div className="title">
@@ -23,14 +49,20 @@ export const BagProduct = () => {return (
       </div>
       
       <hr></hr>
-      <div className="listProduct">
-        <p className="NumberProduct">1</p>
-        <img src={product} alt="" className="image_Product1"/>
-        <p className="NameProduct1">BAST SHOES</p>
-        <p className="amount-1">1</p>
-        <p className="price-1">100$</p>
-        <p className="total-1">100$</p>
-      </div>
+      
+      {cartOrder.map((cartOrder,index)=>(
+        
+         <div className="listProduct">
+            <p className="NumberProduct">{index+1}</p>
+            <img src={`data:image/png;base64,${Buffer.from(cartOrder.IMAGE.data).toString("base64")}`} alt="" className="image_Product1"/>
+            <p className="NameProduct1">{cartOrder.PNAME}</p>
+            <p className="amount-1">{cartOrder.QUANTITY}</p>
+            <p className="price-1">{cartOrder.PRICE}$</p>
+            <p className="total-1">{cartOrder.TOTAL}$</p>
+            </div>
+      ))}
+      
+       
       
       <div className="total_Address">
       <div className="rectangleAddres">
@@ -38,25 +70,6 @@ export const BagProduct = () => {return (
         
       </div>
       <div className="address">Address</div>
-      
-        <label className="city">City </label>
-            <select name="city_c" id="city">
-              <option value="yes">HCM</option>
-              <option value="no">Hanoi</option>
-            </select>
-            
-            <label className="district"> District </label>
-            <select name="district_c" id="district">
-              <option value="yes">X</option>
-              <option value="no">y</option>
-            </select>
-            
-            <label className="commune-town">Commune-Town:</label>
-            <select name="commune-town_c" id="commune-town">
-              <option value="yes">X</option>
-              <option value="no">Y</option>
-            </select>
-            
             <label className="address_street">Street:</label>
               <input type="text" className="street">
             </input>
@@ -68,7 +81,7 @@ export const BagProduct = () => {return (
             <div className="title-p-m">Payment Methods</div>
             <label className="checkboxvnpay">
               <input className="stardust-checkbox__input-2" type="checkbox"></input>
-              <label className="momo">Paypal</label>
+             <img src={Paypal} className="paypal"/>
             </label>
             <div className="use-accumulated-points">Use Accumulated points:</div>
             
@@ -76,7 +89,7 @@ export const BagProduct = () => {return (
         </div>
         <div className="rectangleTotal">
           <div className="title-p-t">Total</div>
-          <div className="title_price">Price</div>
+          <div className="title_price">Price: {sum}</div>
           <div className="price"></div>
           <div className="title_price">Discounted Price</div>
           <div className="D_price"></div>

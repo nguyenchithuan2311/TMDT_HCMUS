@@ -31,7 +31,7 @@ export const Editaddproduct = () => {
                 PRICE: price,
                 BRAND: brand,
                 COLOR: color,
-                //IMAGE: image,
+                IMAGE: image,
               }
           })
         .then(response => {
@@ -41,7 +41,7 @@ export const Editaddproduct = () => {
             console.log(error);
         });;
     }
-      useEffect(() => {
+    function getProduct(){
         axios({
             method: 'get',
             url: `http://localhost:4000/product/${currentUrl}`,
@@ -58,6 +58,9 @@ export const Editaddproduct = () => {
             setCategory(response.data[0].NAME)
             setImage(response.data[0].IMAGE)      
         });
+    }
+      useEffect(() => {
+        if(currentUrl != '0') getProduct()
       }, []);
     
     library.add(faStar);

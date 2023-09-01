@@ -3,9 +3,9 @@ const sql = require('mssql');
 async function getCart(req) {
     try {
         let pool = await sql.connect(config);
-        let order = await pool.request().query(`SELECT IMAGE, PNAME, CI.QUANTITY, P.PRICE, SS.TOTAL  
-                                                from CART_ITEM CI, SHOPPING_SESSION SS, PRODUCT P, PRODUCT_DETAILS PD
-                                                WHERE CI.SESSION_ID = SS.ID`);
+        let order = await pool.request().query(`SELECT IMAGE, PNAME, CI.QUANTITY, P.PRICE, CI.TOTAL  
+        from CART_ITEM CI, SHOPPING_SESSION SS, PRODUCT P, PRODUCT_DETAILS PD
+        WHERE CI.SESSION_ID = SS.ID and CI.SESSION_ID=${req} and PD.ID=CI.PRODUCT_ID and P.ID=PD.PID`);
         return order.recordset
     }
     catch (error) {
