@@ -3,7 +3,10 @@ const sql = require('mssql');
 async function getOrders() {
     try {
         let pool = await sql.connect(config);
-        let order = await pool.request().query(`SELECT * from ORDER_DETAILS`);
+        let order = await pool.request().query(`select CAST(od.ID AS int) as ID,UI.USERNAME,UA.ADDR_LINE1,UA.CITY,od.STATUS
+        from ORDER_DETAILS OD,USER_ADD UA,USER_INFO UI
+        where od.USER_ID=ua.USER_ID and od.ADD_ID=UA.ID and UA.USER_ID=UI.ID
+        ORDER BY ID ASC`);
         return order.recordset
     }
     catch (error) {
@@ -75,10 +78,43 @@ async function deleteOrders(req) {
         return error
     }
 }
+async function getRevenue() {
+    try {
+        let pool = await sql.connect(config);
+        let order = await pool.request().query('SELECT FORMAT(MODIFIED_AT, \'yyyy-MM-dd\') as MODIFIED_AT , SUM(total) AS total FROM ORDER_DETAILS GROUP BY FORMAT(MODIFIED_AT, \'yyyy-MM-dd\')');
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
+async function getRevenueMonth() {
+    try {
+        let pool = await sql.connect(config);
+        let order = await pool.request().query('SELECT FORMAT(MODIFIED_AT, \'yyyy-MM\') as MODIFIED_AT , SUM(total) AS total FROM ORDER_DETAILS GROUP BY FORMAT(MODIFIED_AT, \'yyyy-MM\')');
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
+async function getRevenueYear() {
+    try {
+        let pool = await sql.connect(config);
+        let order = await pool.request().query('SELECT FORMAT(MODIFIED_AT, \'yyyy\') as MODIFIED_AT , SUM(total) AS total FROM ORDER_DETAILS GROUP BY FORMAT(MODIFIED_AT, \'yyyy\')');
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
 module.exports = {
     getOrders: getOrders,
     getUOrder: getUOrder,
     createOrders: createOrders,
     updateOrders: updateOrders,
-    deleteOrders: deleteOrders
+    deleteOrders: deleteOrders,
+    getRevenue:getRevenue,
+    getRevenueMonth:getRevenueMonth,
+    getRevenueYear:getRevenueYear
 }

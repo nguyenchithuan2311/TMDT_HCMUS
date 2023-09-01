@@ -11,11 +11,6 @@ async function getListCategory(req){
         return error
     }
 }
-
-module.exports = {
-    getListCategory: getListCategory
-}
-
 async function getCategory(req){
     try{
         let pool = await sql.connect(config);
@@ -26,11 +21,6 @@ async function getCategory(req){
         return error
     }
 }
-
-module.exports = {
-    getCategory: getCategory
-}
-
 async function updateCategory(req) {
     try {
         let pool = await sql.connect(config);
@@ -65,7 +55,8 @@ async function deleteCategory(req) {
     }
 }
 module.exports = {
+    getListCategory: getListCategory,
     updateCategory: updateCategory,
+    getCategory: getCategory,
     deleteCategory: deleteCategory
-
 }
