@@ -895,3 +895,26 @@
 .containerUser2{
   margin-top: 20px;
 }
+.table{
+  width: 100%;
+}
+.LastNameUser{
+  width: 108px;
+  text-align: center;
+}
+.FirstNameUser{
+  width: 104px;
+  text-align: center;
+}
+.UsernameUser{
+  width: 291px;
+  text-align: center;
+}
+.CreatedUser{
+  width: 108px;
+  text-align: center;
+}
+.ModifiedUser{
+  width: 117px;
+  text-align: center;
+}
