@@ -14,20 +14,27 @@ export const Login = () => {
 {
   axios({
     method: 'post',
-    url: 'http://localhost:4000/api/login',
+    url: 'http://localhost:4000/auth/login',
     data: {
       username:email,
       password:password
     }
   })
   .then(result=>{
-    console.log(result)
-    localStorage.setItem('session', result.data.session);
-    navigate("/ManageProduct")
+    if(result.data.success==false)
+    {
+      alert(result.data.message)
+    }
+    else{
+      console.log(result)
+      localStorage.setItem('session', result.data.session);
+      navigate("/ManageProduct")
+    }
+  
   }
   )
   .catch(result=>{
-    console.log(result)
+    alert(result)
   })
 
 }
@@ -57,4 +64,3 @@ export const Login = () => {
     </div>
   );
 };
-

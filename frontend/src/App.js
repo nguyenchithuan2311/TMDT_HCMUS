@@ -4,12 +4,13 @@ import { Detailsproduct } from './components/Detailsproduct';
 import { Editaddproduct } from './components/Editaddproduct';
 import { Managecustomer } from './components/Managecustomer';
 import { Managepointadmin } from './components/Managepointadmin';
-import { Managepointuser } from './components/Managepointuser';
-import { Profile } from './components/Profile';
+import {Profile}  from'./components/Profile';
 import { Order } from './components/Order';
 import { Revenue } from './components/Revenue';
 import {User}  from'./components/User';
-import {BagProduct}  from'./components/BagProduct'
+import {BagProduct}  from'./components/BagProduct';
+import {Register} from './components/Register'
+import {Managepointuser} from './components/Managepointuser'
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path="/" element={<ManageProduct/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
           <Route path="/ManageProduct" element={<ManageProduct/>}/>
           <Route path="/Detailsproduct/:id" element={<Detailsproduct/>}/>
           <Route path="/Managecustomer" element={<Managecustomer/>}/>
@@ -30,6 +33,7 @@ function App() {
           <Route path="/Revenue" element={<Revenue/>}/>
           <Route path="/User" element={<User/>}/>
           <Route path="/BagProduct" element={<BagProduct/>}/>
+          <Route path="/BagProduct/:id" element={<BagProduct/>}/>
           {/* <Route path="/login" element={<Login/>}/>
           <Route path="/ManageProduct" element={<ManageProduct/>}/>
           <Route path="/login" element={<Login/>}/>

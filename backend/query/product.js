@@ -5,6 +5,16 @@ async function getProducts() {
         let pool = await sql.connect(config);
         let order = await pool.request().query(`SELECT P.ID, PNAME, PRICE, IMAGE from PRODUCT P`);
         //PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID
+       return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
+async function getBrands() {
+    try {
+        let pool = await sql.connect(config);
+        let order = await pool.request().query(`SELECT DISTINCT BRAND from PRODUCT`);
         return order.recordset
     }
     catch (error) {
@@ -13,7 +23,6 @@ async function getProducts() {
 }
 async function getProduct(req) {
     try {
-        console.log(req)
         let pool = await sql.connect(config);
         let order = await pool.request()
         .input('ID',sql.Char(5), req)
@@ -26,27 +35,12 @@ async function getProduct(req) {
         return error
     }
 }
-async function getProductCus(req) {
-    try {
-        console.log(req)
-        let pool = await sql.connect(config);
-        let order = await pool.request()
-        .input('ID',sql.Char(5), req)
-        .query(`SELECT P.ID AS PID, PCD.ID AS ID, PNAME, PRICE, SIZE, COLOR, IMAGE  
-        from PRODUCT P, PRODUCT_DETAILS PCD
-        WHERE P.ID = PCD.PID AND PCD.PID = @ID `);
-        return order.recordset
-    }
-    catch (error) {
-        return error
-    }
-}
 async function searchProduct(req) {
     try {
         let pool = await sql.connect(config);
         let order = await pool.request()
-        .input('INPUT',sql.Char(40), req)
-        .query(`SELECT  P.ID, PNAME, PRICE, IMAGE from PRODUCT P WHERE P.PNAME LIKE '%${req}%'`);
+        .input('INPUT',sql.Char(5), req)
+        .query(`SELECT * from PRODUCT P, PRODUCT_DETAILS PCD WHERE P.ID = PCD.PID AND P.NAME LIKE '%${req}%'`);
         return order.recordset
     }
     catch (error) {
@@ -109,12 +103,29 @@ async function deleteProduct(req) {
         return error
     }
 }
+
+async function getProductCus(req) {
+    try {
+        console.log(req)
+        let pool = await sql.connect(config);
+        let order = await pool.request()
+        .input('ID',sql.Char(5), req)
+        .query(`SELECT P.ID AS PID, PCD.ID AS ID, PNAME, PRICE, SIZE, COLOR, IMAGE  
+        from PRODUCT P, PRODUCT_DETAILS PCD
+        WHERE P.ID = PCD.PID AND PCD.PID = @ID `);
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
 module.exports = {
     getProducts: getProducts,
+    getBrands: getBrands,
     getProduct: getProduct,
-    getProductCus: getProductCus,
     createProduct: createProduct,
     updateProduct: updateProduct,
     deleteProduct: deleteProduct,
-    searchProduct: searchProduct
+    searchProduct: searchProduct,
+    getProductCus:getProductCus
 }

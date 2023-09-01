@@ -1,19 +1,32 @@
 import "../css/User.css"
 import Nav from './nav';
-
-import icon_search from "../asset/img/magnifying-glass-solid.svg"
-import product from "../asset/img/shoe19_720x.webp"
-import bag from "../asset/img/bag-shopping-solid (1).svg"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import React, { useState, useEffect } from 'react';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faStar} from "@fortawesome/free-solid-svg-icons";export const User = () => {
+import { faStar} from "@fortawesome/free-solid-svg-icons";
+import Moment from 'react-moment'
 
+
+
+
+export const User = () => {
+  const [userdata, setuserdata] = useState([]);
+  useEffect(()=>{
+    axios({
+          method: 'get',
+          url: 'http://localhost:4000/user/user',
+         })
+         .then(result=>{
+         setuserdata(result.data)})
+        .catch(result=>{
+         })
+  },[]);
   library.add(faStar);
-
   return (
     <div>
       <Nav/>
-    <div class="rectangle1-12">
+      <div class="rectangle1-12">
+        <table className="table">
         <div class="user-list">USER LIST</div>
         <div className="containerUser1">
                 <div class="dif">#</div>
@@ -22,18 +35,25 @@ import { faStar} from "@fortawesome/free-solid-svg-icons";export const User = ()
                 <div class="email">Email</div>
                 <div class='time1'>Created At</div>
                 <div class='time2'>Modified At</div>
+                </div>          
+                {userdata.map((userdata) => (
+                <div
+                  className="containerUser2"                  
+                >     
+                <div className="_1u">{userdata.ID}</div>         
+                <div className="LastNameUser">{userdata.LAST_NAME}</div>     
+                <div className="FirstNameUser">{userdata.FIRST_NAME}</div>           
+                <div className="UsernameUser">{userdata.USERNAME}</div>    
+                <div className="CreatedUser">{userdata.CREATED_AT}</div> 
+                <div className="ModifiedUser">{userdata.MODIFIED_AT}</div>        
                 </div>
-                <div class="line1-3"></div>
-                <div className="containerUser2">
-                <div class="_1u">1</div>
-                <div class="thuanu">Thuan</div>
-                <div class="thuanu">Nguyen</div>
-                <div class="nguyenchithuan-55-gmail-com">nguyenchithuan55@gmail.com</div>
-                <div class="nguyenchithuan-55-gmail-com">12/08/2023</div>
-                <div class="nguyenchithuan-55-gmail-com">13/08/2023</div>
-                </div>
+                ))}
+           {/* {Moment(userdata.CREATED_AT).format('YYYY-MM-DD')} */}
+           {/* {Moment(userdata.MODIFIED_AT).format('YYYY-MM-DD')} */}
+           </table>       
     </div>
+    
     </div>
+
   );
 };
-
