@@ -31,13 +31,13 @@ export const Detailsproduct = () => {
           url: `http://localhost:4000/cart`,
           data: {
               PRODUCT_ID: product_id.trim(),
-              SESSION_ID: '1',//localStorage.getItem('session'),
+              SESSION_ID: localStorage.getItem('session'),
               QUANTITY: amount,
               TOTAL: amount * productDetail[0].PRICE  
             }
         })
       .then(response => {
-          console.log('reached');
+          alert('success')
       })
       .catch(error => {
           console.log(error);
