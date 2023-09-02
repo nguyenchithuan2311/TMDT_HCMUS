@@ -108,6 +108,34 @@ async function getRevenueYear() {
         return error
     }
 }
+
+async function insertOrder_Details(req) {
+    try {
+        console.log(req.USER_ID)
+        console.log(req.ADD_ID)
+        console.log(req.TOTAL)
+        var x=new Date()
+        var date = x.getDate()+'-'+(x.getMonth()+1)+'-'+x.getFullYear();
+        console.log(date.toString())
+        let pool = await sql.connect(config);
+        let order = await pool.request()
+        .input('USER_ID', sql.Char(5), req.USER_ID)
+        .input('ADD_ID', sql.Char(5), req.ADD_ID)
+        .input('TOTAL', sql.Decimal, req.TOTAL)
+        .input('CREATED_AT', sql.DateTime, date.toString())
+        .input('MODIFIED_AT', sql.DateTime, date.toString())
+        .query
+        (`insert ORDER_DETAILS(ID,USER_ID,ADD_ID,TOTAL,STATUS,CREATED_AT,MODIFIED_AT) 
+        values((select top 1 ID from ORDER_DETAILS order by ID desc)+1
+        ,@USER_ID,@TOTAL,'Processed',@CREATED_AT,@CREATED_AT)
+        `);
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
+
 module.exports = {
     getOrders: getOrders,
     getUOrder: getUOrder,
@@ -116,5 +144,6 @@ module.exports = {
     deleteOrders: deleteOrders,
     getRevenue:getRevenue,
     getRevenueMonth:getRevenueMonth,
-    getRevenueYear:getRevenueYear
+    getRevenueYear:getRevenueYear,
+    insertOrder_Details:insertOrder_Details
 }
