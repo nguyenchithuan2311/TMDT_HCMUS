@@ -78,6 +78,25 @@ async function getRemainPointsYear(req) {
         return error
     }
 }
+
+async function insertPoint(req) {
+    try {
+        var x=new Date()
+        var date = x.getDate()+'-'+(x.getMonth()+1)+'-'+x.getFullYear();
+        console.log(date.toString())
+        let pool = await sql.connect(config);
+        let order = await pool.request()
+        .input('USER_ID', sql.Char(5), req.USER_ID)
+        .input('ORDER_ID', sql.Char(5), req.ORDER_ID)
+        .input('AMOUNT', sql.Int, req.AMOUNT)
+        .input('CREATED_AT', sql.DateTime, date.toString())
+        .query(`INSERT INTO POINT_HISTORY VALUES((select top 1 ID from ORDER_ITEMS order by ID desc)+1, @USER_ID, @ORDER_ID, @AMOUNT, @CREATED_AT)`);
+        return "Successful"
+    }
+    catch (error) {
+        return error
+    }
+}
 module.exports = {
     getPoints: getPoints,
     getpointVolatilityDay:getpointVolatilityDay,
@@ -85,6 +104,7 @@ module.exports = {
     getpointVolatilityYear:getpointVolatilityYear,
     getRemainPointsDay:getRemainPointsDay,
     getRemainPointsMonth:getRemainPointsMonth,
-    getRemainPointsYear:getRemainPointsYear
+    getRemainPointsYear:getRemainPointsYear,
+    insertPoint: insertPoint
     
 }

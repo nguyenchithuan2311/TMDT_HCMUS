@@ -25,18 +25,21 @@ router.post('/',(req,res,next)=>{
       console.log(req.body);
     })
   })
-router.patch('/:id',(req,res,next)=>{
+router.patch('/cart',(req,res,next)=>{
   dboperations.updateProduct(req.body).then(result=>{
     console.log(result);
     res.send('post reached');
-    console.log(req.params);
+    console.log(req.body);
   })
 })
-router.delete('/:id', (req,res)=>{
-  const {id} = req.params
-  dboperations.deleteProduct(id).then(result=>{
-    console.log(result);
-    console.log(id);
+router.delete('/delete', (req,res)=>{
+  dboperations.deleteProduct(req.body).then(result=>{
+    res.send(result);
+  })
+  
+})
+router.delete('/delete/all', (req,res)=>{
+  dboperations.deleteCart(req.body).then(result=>{
     res.send(result);
   })
   

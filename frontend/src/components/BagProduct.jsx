@@ -5,24 +5,57 @@ import React, { useState, useEffect} from 'react';
 import Paypal from "../asset/img/196566.png"
 import axios from 'axios';
 import { Buffer } from "buffer";
+import {useMemo } from "react";
+import { PayPalButton } from "@repeatgg/react-paypal-button-v2";
+import { da } from "date-fns/locale";
 export const BagProduct = () => {
-  
+  const [value, setValue] = useState("");
   const [cartOrder,setCartOrder ] = useState([]);
-  function data()
-  {
-    axios({
-      method: 'get',
-      url: `http://localhost:4000/cart/cart/1`,
+  const [Address,setAddress ] = useState([]);
+  const [sdk,setsdk]=useState(false);
+  const [addressPick, setAddressPick] = useState("");
+  const [cityPick, setCityPick] = useState("");
+  const [orderID, setOrderID] = useState("");
+  const [pointUse, setPointUse] = useState("");
+ const order = useMemo(() => {
+  axios({
+    method: 'get',
+    url: `http://localhost:4000/cart/cart/${localStorage.getItem('session')}`,
+  })
+    .then(result => {
+      setCartOrder(result.data);
     })
-      .then(result => {
-        setCartOrder(result.data);
-        
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
- data()
+    .catch(error => {
+      console.error(error);
+    });
+}, []);
+const address = useMemo(() => {
+  axios({
+    method: 'get',
+    url: `http://localhost:4000/payment/address/${localStorage.getItem('session')}`,
+  })
+    .then(result => {
+      console.log(result.data)
+      setAddress(result.data); 
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}, []);
+var point=0
+function limitPoint()
+{
+  axios({
+    method: 'get',
+    url: `http://localhost:4000/payment/point/${localStorage.getItem('session')}`,
+  })
+    .then(result => {
+      point=result.data[0].point
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
  var sum
  function x(){
   let sum=0;
@@ -33,7 +66,63 @@ export const BagProduct = () => {
   return sum
  }
  sum=x()
-  return (
+ limitPoint()
+ const handleChange = (e) => {
+  setPointUse(e.target.value);
+  const x=document.getElementsByClassName("use-point")
+  var Element4 = document.getElementsByClassName("title_price")
+  if (!/^[0-9]+$/.test(pointUse) ) {
+    
+    setValue("");
+    alert("Vui lòng nhập số!");
+    Element4[1].innerHTML=Element4[0].innerHTML.slice(7,Element4[0].innerHTML.length)
+    Element4[1].innerHTML='Discounted Price:'+Element4[1].innerHTML
+    
+  } else if(pointUse>point)
+  {
+    
+    setValue("");
+    alert(`Số nhập vượt quá điểm hiện có. Điểm hiện có là: ${point}`);
+    Element4[1].innerHTML=Element4[0].innerHTML.slice(7,Element4[0].innerHTML.length)
+    Element4[1].innerHTML='Discounted Price:'+Element4[1].innerHTML
+  }
+   else 
+  {
+    setValue(x[0].value);
+    Element4[1].innerHTML=Element4[0].innerHTML.slice(7,Element4[0].innerHTML.length)-x[0].value*5
+    Element4[1].innerHTML='Discounted Price:'+Element4[1].innerHTML
+  }
+  if(Number.parseInt(Element4[1].innerHTML.slice(17,Element4[1].innerHTML.length))<0){
+    setValue("");
+    alert(`Điểm sử dụng vượt quá số tiền của món hàng.`);
+    Element4[1].innerHTML=Element4[0].innerHTML.slice(7,Element4[0].innerHTML.length)
+    Element4[1].innerHTML='Discounted Price:'+Element4[1].innerHTML
+  }
+};
+const [config,setconfig ] = useState([]);
+useMemo(()=>{
+  axios({
+    method: 'get',
+    url: `http://localhost:4000/payment/config`,
+  })
+    .then(result => {
+    setconfig(result.data.data)
+     const script=document.createElement('script')
+     script.type='text/javascript'
+     script.src=`https://www.paypal.com/sdk/js?client-id=${config}`
+     script.async=true;
+     script.onload=()=>{
+      setsdk(true)
+     }
+     document.body.appendChild(script)
+    })
+    .catch(error => {   
+    });
+    
+  
+},[])
+console.log(config)
+return (
     <div>
     <Nav/>
     <div className="title">
@@ -56,7 +145,95 @@ export const BagProduct = () => {
             <p className="NumberProduct">{index+1}</p>
             <img src={`data:image/png;base64,${Buffer.from(cartOrder.IMAGE.data).toString("base64")}`} alt="" className="image_Product1"/>
             <p className="NameProduct1">{cartOrder.PNAME}</p>
-            <p className="amount-1">{cartOrder.QUANTITY}</p>
+            <div className="amountProduct">
+              <button className="amount-" onClick={function(){
+                const Element1 = document.getElementsByClassName("amount-1")
+                
+                if(Element1[index].innerHTML!=1)
+                {
+                Element1[index].innerHTML=Element1[index].innerHTML-1
+                const Element2 = document.getElementsByClassName("price-1")
+                const Element3 = document.getElementsByClassName("total-1")
+                Element3[index].innerHTML=(Element1[index].innerHTML*Element2[index].innerHTML.slice(0,Element2[index].innerHTML.length-1))+'$'
+                const Element4 = document.getElementsByClassName("title_price")
+                Element4[0].innerHTML=Element4[0].innerHTML.slice(7,Element4[0].innerHTML.length)-(Element2[index].innerHTML.slice(0,Element2[index].innerHTML.length-1))
+                
+                Element4[0].innerHTML='Price: '+Element4[0].innerHTML
+                Element4[1].innerHTML=Element4[1].innerHTML.slice(17,Element4[1].innerHTML.length)-(Element2[index].innerHTML.slice(0,Element2[index].innerHTML.length-1))
+                Element4[1].innerHTML='Discounted Price:'+Element4[1].innerHTML
+               
+                axios({
+                  method: 'patch',
+                  url: `http://localhost:4000/cart/cart`,
+                  data: {
+                    PRODUCT_ID: Element1[index].getAttribute("value"),
+                    SESSION_ID: localStorage.getItem('session').trim(),
+                    QUANTITY: Number.parseInt(Element1[index].innerHTML),
+                    TOTAL: Number.parseInt(Element3[index].innerHTML.slice(0,Element3[index].innerHTML.length-1)) 
+                  }
+                })
+                  .then(result => {
+                    
+                  })
+                  .catch(error => {
+                    
+                  });
+              }
+              else
+              {
+                window.confirm("Bạn có muốn xóa nó không ?");
+                if(window.confirm("Bạn có muốn xóa nó không ?")==true)
+                {
+                  axios({
+                    method: 'delete',
+                    url: `http://localhost:4000/cart/delete`,
+                    data: {
+                      PRODUCT_ID: Element1[index].getAttribute("value"),
+                      SESSION_ID: localStorage.getItem('session').trim()
+                    }
+                  })
+                    .then(result => {
+                      
+                    })
+                    .catch(error => {
+                     
+                    });
+                }
+              }
+              }}>-</button> 
+            <p className="amount-1" value={cartOrder.PRODUCT_ID.trim()}>{cartOrder.QUANTITY}</p>
+            <button className="amount_" onClick={function(){
+                const Element1 = document.getElementsByClassName("amount-1")
+                Element1[index].innerHTML=(Number.parseInt(Element1[index].innerHTML)+1).toString()
+                const Element2 = document.getElementsByClassName("price-1")
+                const Element3 = document.getElementsByClassName("total-1")
+                Element3[index].innerHTML=(Element1[index].innerHTML*Element2[index].innerHTML.slice(0,Element2[index].innerHTML.length-1))+'$'
+                const Element4 = document.getElementsByClassName("title_price")
+                Element4[0].innerHTML=(Number.parseInt(Element4[0].innerHTML.slice(7,Element4[0].innerHTML.length))+Number.parseInt(Element2[index].innerHTML.slice(0,Element2[index].innerHTML.length-1))).toString()
+                
+                Element4[0].innerHTML='Price: '+Element4[0].innerHTML
+                Element4[1].innerHTML=((Number.parseInt(Element4[1].innerHTML.slice(17,Element4[1].innerHTML.length)))+(Number.parseInt(Element2[index].innerHTML.slice(0,Element2[index].innerHTML.length-1)))).toString()
+                Element4[1].innerHTML='Discounted Price:'+Element4[1].innerHTML
+                axios({
+                  method: 'patch',
+                  url: `http://localhost:4000/cart/cart`,
+                  data: {
+                    PRODUCT_ID: Element1[index].getAttribute("value"),
+                    SESSION_ID: localStorage.getItem('session').trim(),
+                    QUANTITY: Number.parseInt(Element1[index].innerHTML),
+                    TOTAL: Number.parseInt(Element3[index].innerHTML.slice(0,Element3[index].innerHTML.length-1)) 
+                  }
+                })
+                  .then(result => {
+                    point=result.data[0].points
+                   
+                  })
+                  .catch(error => {
+                  
+                  });
+              
+              }}>+</button>
+            </div>
             <p className="price-1">{cartOrder.PRICE}$</p>
             <p className="total-1">{cartOrder.TOTAL}$</p>
             </div>
@@ -65,15 +242,32 @@ export const BagProduct = () => {
        
       
       <div className="total_Address">
+        
       <div className="rectangleAddres">
       <div className="payment">
         
       </div>
       <div className="address">Address</div>
-            <label className="address_street">Street:</label>
-              <input type="text" className="street">
-            </input>
+            <label className="address_street">Street:
+            <input type="text" list="cars" className="street" onChange = {(event) => setAddressPick(event.target.value)}/>
+          {Address.map((add)=>(
+            <datalist id="cars">
+            <option>{add.ADDR_LINE1}</option>
+            </datalist>
+          ))}
+          </label>
+          <div className="address"></div>
+            <label className="address_street1">City:
+            <input type="text" list="car" className="street1" onChange = {(event) => setCityPick(event.target.value)}/>
+          {Address.map((add)=>(
+            <datalist id="car">
+            <option>{add.City}</option>
+            </datalist>
+          ))}
+          </label>
+          
       </div>
+      
       <div className="total">
       <div className="rectanglePayment">
             <div className="title-p-t">Payment</div>
@@ -84,18 +278,93 @@ export const BagProduct = () => {
              <img src={Paypal} className="paypal"/>
             </label>
             <div className="use-accumulated-points">Use Accumulated points:</div>
-            
-            <input className="use-point"></input>
+            <input type="text" pattern="[0-9]+" className="use-point"  value={value} onChange={handleChange}></input>
         </div>
         <div className="rectangleTotal">
           <div className="title-p-t">Total</div>
-          <div className="title_price">Price: {sum}</div>
+          <div className="title_price" value="1">Price: {sum}</div>
           <div className="price"></div>
-          <div className="title_price">Discounted Price</div>
+          <div className="title_price" value="2">Discounted Price:{sum-value*5} </div>
           <div className="D_price"></div>
-
-          <button onPress={()=> this.ponavigation.navigate('BagProduct')} className ="button_payment" >Confirm
-          </button>
+          <PayPalButton
+        amount={sum-value*5}
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+        onSuccess={(details, data) => {
+          alert("Transaction completed by " + details.payer.name.given_name);
+          const Element1 = document.getElementsByClassName("amount-1")
+          // OPTIONAL: Call your server to save the transaction
+          if(details.status=="COMPLETED")
+          {
+            var add_id = '';
+            for(let i = 0; i<address.length;i++){
+              if(address[i].ADDR_LINE1 === addressPick && address[i].City === cityPick) add_id = address[i].ID
+            }
+            axios({
+              method: 'post',
+              url: `http://localhost:4000/order/orderDetails`,
+              data: {
+                USER_ID: localStorage.getItem('session').trim(),
+                ADD_ID: add_id,
+                TOTAL: sum
+              }
+            }).then(result => {
+              setOrderID(result.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+            for(var i=0;i<cartOrder.length;i=i+1){
+              axios({
+                method: 'post',
+                url: `http://localhost:4000/order/orderItems`,
+                data: {
+                  PRODUCT_ID: cartOrder[i].PRODUCT_ID,
+                  ORDER_ID: orderID,
+                  QUANTITY: cartOrder[i].QUANTITY
+                }
+              })
+            }
+            axios({
+              method: 'post',
+              url: `http://localhost:4000/point/insertPoint`,
+              data: {
+                USER_ID: localStorage.getItem('session').trim(),
+                ORDER_ID: orderID,
+                AMOUNT: Number("-".concat(pointUse))
+              }
+            })
+            axios({
+              method: 'post',
+              url: `http://localhost:4000/point/insertPoint`,
+              data: {
+                USER_ID: localStorage.getItem('session').trim(),
+                ORDER_ID: orderID,
+                AMOUNT: sum/100
+              }
+            })
+            axios({
+              method: 'delete',
+              url: `http://localhost:4000/cart/delete/all`,
+              data: {
+                SESSION_ID: localStorage.getItem('session').trim()
+              }
+            })
+          }
+          fetch("/paypal-transaction-complete", {
+            method: "post",
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          });
+          window.location.reload();
+        }}
+        onError={()=>{
+          
+          alert("Error")
+        window.location.reload();}
+        }
+        
+      />
         </div>
       </div>
       </div>
