@@ -5,6 +5,7 @@ const category = require("./router/category");
 const product = require("./router/product");
 const order = require("./router/order");
 const cart = require("./router/cart");
+const payment = require("./router/payment")
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -22,5 +23,6 @@ app.use('/category', category);
 app.use('/product', product);
 app.use('/order', order);
 app.use('/cart', cart);
+app.use('/payment', payment);
 
 var server = app.listen(4000, () => console.log(`Server is starting at port ${4000}`));

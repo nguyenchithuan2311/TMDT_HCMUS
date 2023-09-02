@@ -37,6 +37,9 @@ router.get('/pointVolatilityDay',(req,res,next)=>{
         res.send(result);
     })
   })
-  
-
+  router.post('/insertPoint',(req,res,next)=>{
+    dboperations.insertPoint(req).then(result=>{
+        res.send(result);
+    })
+  })
   module.exports = router;

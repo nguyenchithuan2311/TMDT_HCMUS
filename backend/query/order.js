@@ -29,15 +29,32 @@ async function createOrders(req) {
     try {
         let pool = await sql.connect(config);
         let order = await pool.request()
-        .input('ID', sql.Char(5), req.ID)
         .input('USER_ID', sql.Char(5), req.USER_ID)
         .input('TOTAL', sql.Decimal, req.TOTAL)
-        .input('POINT', sql.Int, req.POINT)
+        .input('ADD_ID', sql.Int, req.ADD_ID)
         .input('PAYMENT_ID', sql.Char(5), req.PAYMENT_ID)
         .input('STATUS', sql.NChar(20), req.STATUS)
         .input('CREATED_AT', sql.DateTime, req.CREATED_AT)
         .input('MODIFIED_AT', sql.DateTime, req.MODIFIED_AT)
-        .query(`INSERT INTO ORDER_DETAILS VALUES(@ID,@USER_ID,@TOTAL,@POINT,@PAYMENT_ID,@STATUS,@CREATED_AT,@MODIFIED_AT);`);
+        .query(`INSERT INTO ORDER_DETAILS VALUES((SELECT COUNT(*) FROM ORDER_DETAILS)+1,@USER_ID,@TOTAL,@ADD_ID,@PAYMENT_ID,@STATUS,@CREATED_AT,@MODIFIED_AT);`);
+        return "Successful"
+    }
+    catch (error) {
+        return error
+    }
+}
+async function addOrderItem(req) {
+    try {
+        let pool = await sql.connect(config);
+        let temp = await pool.request().query(`SELECT TOP 1 ID FROM CART_ITEM
+        ORDER BY ID DESC;`)
+        console.log(temp)
+        let order = await pool.request()
+        .input('PRODUCT_ID', sql.Char(5), req.PRODUCT_ID)
+        .input('SESSION_ID', sql.Char(5), req.SESSION_ID)
+        .input('QUANTITY', sql.Int, req.QUANTITY)
+        .input('TOTAL', sql.Money, req.TOTAL)
+        .execute(`addCart`);
         return "Successful"
     }
     catch (error) {
@@ -108,6 +125,53 @@ async function getRevenueYear() {
         return error
     }
 }
+
+async function insertOrder_Details(req) {
+    try {
+        console.log(req.USER_ID)
+        console.log(req.ADD_ID)
+        console.log(req.TOTAL)
+        var x=new Date()
+        var date = x.getDate()+'-'+(x.getMonth()+1)+'-'+x.getFullYear();
+        console.log(date.toString())
+        let pool = await sql.connect(config);
+        let order = await pool.request()
+        .input('USER_ID', sql.Char(5), req.USER_ID)
+        .input('ADD_ID', sql.Char(5), req.ADD_ID)
+        .input('TOTAL', sql.Decimal, req.TOTAL)
+        .input('CREATED_AT', sql.DateTime, date.toString())
+        .input('MODIFIED_AT', sql.DateTime, date.toString())
+        .execute(`insertOrder_Details`);
+        return order.recordset
+    }
+    catch (error) {
+        return error
+    }
+}
+async function insertOrderItem(req) {
+    try {
+        var x=new Date()
+        var date = x.getDate()+'-'+(x.getMonth()+1)+'-'+x.getFullYear();
+        console.log(date.toString())
+        let pool = await sql.connect(config);
+        let temp = await pool.request().query(`SELECT TOP 1 ID FROM CART_ITEM
+        ORDER BY ID DESC;`)
+        console.log(temp)
+        let order = await pool.request()
+        .input('PRODUCT_ID', sql.Char(5), req.PRODUCT_ID)
+        .input('ORDER_ID', sql.Char(5), req.ORDER_ID)
+        .input('QUANTITY', sql.Int, req.QUANTITY)
+        .input('CREATED_AT', sql.DateTime, date.toString())
+        .input('MODIFIED_AT', sql.DateTime, date.toString())
+        .query(`insert into ORDER_ITEMS(ID, PRODUCT_ID, ORDER_ID, QUANTITY, CREATED_AT, MODIFIED_AT)
+                VALUES((select top 1 ID from ORDER_ITEMS order by ID desc)+1, @PRODUCT_ID, @ORDER_ID, @QUANTITY, @CREATED_AT, @MODIFIED_AT)`);
+        return "Successful"
+    }
+    catch (error) {
+        return error
+    }
+}
+
 module.exports = {
     getOrders: getOrders,
     getUOrder: getUOrder,
@@ -116,5 +180,7 @@ module.exports = {
     deleteOrders: deleteOrders,
     getRevenue:getRevenue,
     getRevenueMonth:getRevenueMonth,
-    getRevenueYear:getRevenueYear
+    getRevenueYear:getRevenueYear,
+    insertOrder_Details:insertOrder_Details,
+    insertOrder_Item: insertOrderItem
 }

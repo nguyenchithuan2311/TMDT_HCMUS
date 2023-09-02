@@ -58,4 +58,16 @@ router.get('/order/year',(req,res)=>{
   })
   
 })
+router.post('/order/orderDetails',(req,res)=>{
+  dboperations.insertOrder_Details(req.body).then(result=>{
+    res.send(result);
+  })
+  
+})
+router.post('/order/orderItems',(req,res)=>{
+  dboperations.insertOrder_Item(req.body).then(result=>{
+    res.send(result);
+  })
+  
+})
   module.exports = router;
