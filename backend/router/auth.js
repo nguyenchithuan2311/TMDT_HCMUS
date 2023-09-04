@@ -2,12 +2,15 @@
 var express = require('express');
 var router = express.Router();
 var dboperations=require('../query/auth')
-
+var cors = require('cors');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
+
+router.use(cors())
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
+
 const oneDay = 1000 * 60 * 60 * 24;
 
 router.use(sessions({
